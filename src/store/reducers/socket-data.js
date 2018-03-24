@@ -10,10 +10,7 @@ const initializeState = {
     paused: false,
     camera: false,
     usbStatus: false,
-    printingProgress: {
-      percent: 0.0,
-      timeLeft: 0
-    },
+    printProgress: {},
     temps: {
       bed: {
         actual: null,
@@ -55,6 +52,15 @@ const reducer = (state = initializeState, action) => {
       socketData: {
         ...state.socketData,
         temps: action.value
+      }
+    }
+  }
+
+  if (action.type === 'UPDATE_PRINT_PROGRESS') {
+    return {
+      socketData: {
+        ...state.socketData,
+        printProgress: action.value
       }
     }
   }

@@ -12,6 +12,9 @@ class ReceiveUpdate extends Component {
       <div>
         <h1>Printer is: {this.props.socketData.currentState}</h1>
         <div>
+          <p>Printing progress: {Math.round(this.props.socketData.printProgress.completion)}%</p>
+        </div>
+        <div>
           <p>The Bed Temperature is:</p>
           <p>Actual: {this.props.socketData.temps.bed.actual}</p>
           <p>Target: {this.props.socketData.temps.bed.target}</p>

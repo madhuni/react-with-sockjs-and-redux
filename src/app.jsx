@@ -43,9 +43,9 @@ class App extends Component {
     }
     return (
       <div>
-        {appHeading}
+        {/* {appHeading} */}
         <SocketConnection />
-        <Comp />
+        {/* <Comp /> */}
         <ReceiveUpdate />
       </div>
     );

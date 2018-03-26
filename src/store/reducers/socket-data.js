@@ -11,6 +11,7 @@ const initializeState = {
     camera: false,
     usbStatus: false,
     printProgress: {},
+    job: {},
     temps: {
       bed: {
         actual: null,
@@ -61,6 +62,15 @@ const reducer = (state = initializeState, action) => {
       socketData: {
         ...state.socketData,
         printProgress: action.value
+      }
+    }
+  }
+
+  if (action.type === 'UPDATE_JOB_DETAILS') {
+    return {
+      socketData: {
+        ...state.socketData,
+        job: action.value
       }
     }
   }

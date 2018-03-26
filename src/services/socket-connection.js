@@ -7,7 +7,7 @@ class SocketConnection extends Component {
     /* Setting up the URL for the sockjs */
 
     // const sockJsURI = 'http://192.168.1.106:5000/sockjs';
-    const sockJsURI = 'http://192.168.1.120:5000/sockjs';
+    const sockJsURI = 'http://0.0.0.0:5000/sockjs';
     const wsToken = 'eyJwdWJsaWNfa2V5IjoiZWFlNTY4NzU5ZTM2NDg1Y2FhZDllYWFlZTdiZDQ3MDUifQ.DZawOg.pULPuA-B5OVYb0O82xQVEjbTqBk';
 
     /* Making the new instance of the SockJS using the SockJS URI */
@@ -24,7 +24,7 @@ class SocketConnection extends Component {
       // console.log('onmessage: ', e.data);
       for (const prop in e.data) {
         const data = e.data[prop];
-        // console.log(data);
+        // console.log(JSON.stringify(data));
         if (prop === 'current') {
           const currentState = data.state.text;
           const printProgress = data.progress;
@@ -34,6 +34,11 @@ class SocketConnection extends Component {
           if (data.temps.length !== 0) {
             const temps = data.temps[data.temps.length - 1];
             this.props.onUpdateTemps(temps);
+          }
+
+          if (data.job !== null) {
+            const job = data.job;
+            this.props.onUpdateJobDetails(job);
           }
           // console.log(currentState);
         }
@@ -69,6 +74,10 @@ const mapDispatchToProps = (dispatch) => {
     onUpdatePrintProgress: (printProgress) => {dispatch({
       type: 'UPDATE_PRINT_PROGRESS',
       value: printProgress
+    })},
+    onUpdateJobDetails: (job) => {dispatch({
+      type: 'UPDATE_JOB_DETAILS',
+      value: job
     })}
   }
 };

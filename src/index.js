@@ -7,6 +7,7 @@ import { combineReducers } from "redux";
 import App from './app.jsx';
 import initialDataReducer from './store/reducers/initial-data';
 import socketDataReducer from './store/reducers/socket-data';
+import './index.css';
 
 /* Creating a 'rootReducer' with the mulitple reducers */
 const rootReducer = combineReducers({

@@ -3,12 +3,47 @@ import sockjs from "sockjs-client";
 import { connect } from "react-redux";
 
 class SocketConnection extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      socketData: null
+    };
+
+    this.updateInterval = setInterval(this.sendUpdateToUI, 5000);
+  }
+
+  sendUpdateToUI = () => {
+    console.log('Callback fn is called');
+    if (this.state.socketData !== null) {
+      for (const prop in this.state.socketData) {
+        const currentData = this.state.socketData[prop];
+        // console.log(JSON.stringify(data));
+        if (prop === 'current') {
+          const currentState = currentData.state.text;
+          const printProgress = currentData.progress;
+          this.props.onUpdatePrinterState(currentState);
+          this.props.onUpdatePrintProgress(printProgress);
+  
+          if (currentData.temps.length !== 0) {
+            const temps = currentData.temps[currentData.temps.length - 1];
+            this.props.onUpdateTemps(temps);
+          }
+  
+          if (currentData.job !== null) {
+            const job = currentData.job;
+            this.props.onUpdateJobDetails(job);
+          }
+          // console.log(currentState);
+        }
+      }
+    }
+  }
+
   componentDidMount() {
     /* Setting up the URL for the sockjs */
-
-    // const sockJsURI = 'http://192.168.1.106:5000/sockjs';
-    const sockJsURI = 'http://0.0.0.0:5000/sockjs';
-    const wsToken = 'eyJwdWJsaWNfa2V5IjoiZWFlNTY4NzU5ZTM2NDg1Y2FhZDllYWFlZTdiZDQ3MDUifQ.DZawOg.pULPuA-B5OVYb0O82xQVEjbTqBk';
+    // const sockJsURI = 'http://0.0.0.0:5000/sockjs';
+    const sockJsURI = 'http://192.168.1.106:5001/sockjs';
 
     /* Making the new instance of the SockJS using the SockJS URI */
     const sock = new sockjs(sockJsURI);
@@ -21,32 +56,16 @@ class SocketConnection extends Component {
     };
     /* Adding the method which will trigger the update if anything happens */
     sock.onmessage = (e) => {
-      // console.log('onmessage: ', e.data);
-      for (const prop in e.data) {
-        const data = e.data[prop];
-        // console.log(JSON.stringify(data));
-        if (prop === 'current') {
-          const currentState = data.state.text;
-          const printProgress = data.progress;
-          this.props.onUpdatePrinterState(currentState);
-          this.props.onUpdatePrintProgress(printProgress);
-
-          if (data.temps.length !== 0) {
-            const temps = data.temps[data.temps.length - 1];
-            this.props.onUpdateTemps(temps);
-          }
-
-          if (data.job !== null) {
-            const job = data.job;
-            this.props.onUpdateJobDetails(job);
-          }
-          // console.log(currentState);
-        }
-      }
+      this.setState({
+        ...this.state,
+        socketData: e.data
+      });
     }
     /* This will be called when the connection is being closed */
     sock.onclose = () => {
       console.log('onclose fn is called');
+      this.sendUpdateToUI();
+      clearInterval(this.updateInterval);
     }
   }
 

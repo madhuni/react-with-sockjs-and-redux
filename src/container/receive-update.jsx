@@ -44,12 +44,13 @@ class ReceiveUpdate extends Component {
 
   render() {
     const data = this.props.socketData;
-    let jobName = this.getJobName(data.job.file);
+    let jobName = this.getJobName(data.job.file) === null ? "No Job To Print" : this.getJobName(data.job.file);
     let totalLayer = this.getTotalLayer(data.job.layerCount);
     const timeTaken = this.formatTime(data.printProgress.printTime);
-    const currentState = data.currentState;
+    const timeRemaining = this.formatTime();
+    const currentState = (data.currentState !== null) ? data.currentState: "Checking the status...";
     const totalTime = data.estimatedPrintTime;
-    const printProgress = Math.round(data.printProgress.completion * 10) / 10;
+    const printProgress = !isNaN(data.printProgress.completion) ? (Math.round(data.printProgress.completion * 10) / 10) : "0";
     const currentLayer = data.printProgress.currentLayer;
     const tool0 = data.temps.tool0;
     const tool1 = data.temps.tool1;
@@ -77,19 +78,23 @@ class ReceiveUpdate extends Component {
               <p>Total Time Taken</p>
               <p className="time-value  alert-text">{timeTaken[0]}:{timeTaken[1]}:{timeTaken[2]}</p>
             </div>
+            <div className="time">
+              <p>Time Remaining</p>
+              <p className="time-value  alert-text">{timeRemaining[0]}:{timeRemaining[1]}:{timeRemaining[2]}</p>
+            </div>
           </div>
           <div className="temp-details flex-row">
             <div className="bed-temp temp-box">
               <img src={bedImage} alt="Bed" width="80" height="80"/>
-              <p className="temps"><span className="alert-text">{bed.actual}&deg;</span> / {bed.target}&deg;</p>
+              <p className="temps"><span className="alert-text">{bed.actual !== null ? bed.actual : "--"}&deg;</span> / {bed.target !== null ? bed.target : "--"}&deg;</p>
             </div>
             <div className="tool0-temp temp-box">
               <img src={exd1Image} alt="Bed" width="80" height="80"/>
-              <p className="temps"><span className="alert-text">{tool0.actual}&deg;</span> / {tool0.target}&deg;</p>
+              <p className="temps"><span className="alert-text">{tool0.actual !== null ? tool0.actual : "--"}&deg;</span> / {tool0.target !== null ? tool0.target : "--"}&deg;</p>
             </div>
             <div className="tool1-temp temp-box">
               <img src={exd2Image} alt="Bed" width="80" height="80"/>
-              <p className="temps"><span className="alert-text">{tool1.actual}&deg;</span> / {tool1.target}&deg;</p>
+              <p className="temps"><span className="alert-text">{tool1.actual !== null ? tool1.actual : "--"}&deg;</span> / {tool1.target !== null ? tool1.target : "--"}&deg;</p>
             </div>
           </div>
         </div>

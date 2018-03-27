@@ -1,11 +1,21 @@
 {
+  "author": "Kanishka Mohan Madhuni <kmmadhuni@gmail.com>",
   "name": "react-with-sockjs",
   "version": "0.1.0",
   "private": true,
-  "main": "./electron.js",
+  "main": "./public/electron.js",
+  "extends": null,
+  "homepage": "./",
+  "build": {
+    "appId": "com.example.electron-cra",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
-    "electron": "^1.6.11",
     "electron-is-dev": "^0.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -20,6 +30,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-pack": "build --em.main=build/electron.js",
+    "electron-release": "build --em.main=build/electron.js --publish=always",
+    "preelectron-pack": "yarn build",
+    "preelectron-release": "yarn build"
+  },
+  "devDependencies": {
+    "electron-builder": "^20.8.0"
   }
 }

@@ -43,7 +43,7 @@ class SocketConnection extends Component {
   componentDidMount() {
     /* Setting up the URL for the sockjs */
     // const sockJsURI = 'http://0.0.0.0:5000/sockjs';
-    const sockJsURI = 'http://192.168.1.106:5001/sockjs';
+    const sockJsURI = 'http://0.0.0.0:5000/sockjs';
 
     /* Making the new instance of the SockJS using the SockJS URI */
     const sock = new sockjs(sockJsURI);

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import CircularProgressbar from "react-circular-progressbar";
 
 import bedImage from '../assets/images/bed-plate.svg';
 import exd1Image from '../assets/images/extruder-1.svg';
 import exd2Image from '../assets/images/extruder-2.svg';
+
+import 'react-circular-progressbar/dist/styles.css';
 
 class ReceiveUpdate extends Component {
   componentDidUpdate() {

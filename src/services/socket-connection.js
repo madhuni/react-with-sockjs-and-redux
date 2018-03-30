@@ -2,71 +2,103 @@ import { Component } from "react";
 import sockjs from "sockjs-client";
 import { connect } from "react-redux";
 
+import axios from "axios";
+import getToken from '../services/api/get-token';
+
 class SocketConnection extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      socketData: null
+      socketData: null,
+      apiResponse: null
     };
 
-    this.updateInterval = setInterval(this.sendUpdateToUI, 5000);
+    // this.updateInterval = setInterval(this.sendUpdateToUI, 1000);
+  }
+
+  /**
+   * A callback function to be called when AJAX call to an api will return
+   * a response. This function will be passed to the API service call as
+   * argument.
+   */
+  showApiMsg = () => {
+    this.setState({
+      ...this.state,
+      apiResponse: 'API calling function is called separately'
+    });
   }
 
   sendUpdateToUI = () => {
-    console.log('Callback fn is called');
     if (this.state.socketData !== null) {
       for (const prop in this.state.socketData) {
         const currentData = this.state.socketData[prop];
-        // console.log(JSON.stringify(data));
-        if (prop === 'current') {
-          const currentState = currentData.state.text;
-          const printProgress = currentData.progress;
-          this.props.onUpdatePrinterState(currentState);
-          this.props.onUpdatePrintProgress(printProgress);
-  
-          if (currentData.temps.length !== 0) {
-            const temps = currentData.temps[currentData.temps.length - 1];
-            this.props.onUpdateTemps(temps);
-          }
-  
-          if (currentData.job !== null) {
-            const job = currentData.job;
-            this.props.onUpdateJobDetails(job);
-          }
-          // console.log(currentState);
+        // console.log(currentData);
+        switch (prop) {
+          case 'connected':
+            axios.defaults.headers.common['X-Api-Key'] = currentData['apikey'];
+            break;
+          
+          case 'current':
+            const currentState = currentData.state.text;
+            const printProgress = currentData.progress;
+            this.props.onUpdatePrinterState(currentState);
+            this.props.onUpdatePrintProgress(printProgress);
+
+            if (currentData.temps.length !== 0) {
+              const temps = currentData.temps[currentData.temps.length - 1];
+              this.props.onUpdateTemps(temps);
+            }
+
+            if (currentData.job !== null) {
+              const job = currentData.job;
+              this.props.onUpdateJobDetails(job);
+            }
+            break;
+        
+          default:
+            return null;
+            break;
         }
       }
     }
   }
 
-  componentDidMount() {
-    /* Setting up the URL for the sockjs */
-    // const sockJsURI = 'http://0.0.0.0:5000/sockjs';
+  connect = (token) => {
     const sockJsURI = 'http://0.0.0.0:5000/sockjs';
-
-    /* Making the new instance of the SockJS using the SockJS URI */
-    const sock = new sockjs(sockJsURI);
-
-    /* Opening the Socket Connection */
-    sock.onopen = (e) => {
-      console.log('onopen fn is called');
-      sock.send('This is a test');
-      console.log(e);
+    var options = {
+      debug: true
     };
-    /* Adding the method which will trigger the update if anything happens */
-    sock.onmessage = (e) => {
-      this.setState({
-        ...this.state,
-        socketData: e.data
-      });
-    }
-    /* This will be called when the connection is being closed */
-    sock.onclose = () => {
-      console.log('onclose fn is called');
-      this.sendUpdateToUI();
-      clearInterval(this.updateInterval);
-    }
+
+    this.socket = new sockjs(sockJsURI+'?token='+token, undefined, options);
+    this.socket.onopen = this._onopen.bind(this);
+    this.socket.onmessage = this._onmessage.bind(this);
+    this.socket.onclose = this._onclose.bind(this);
+  }
+
+  _onopen = (e) => {
+    console.log('_onopen fn is called');
+    console.log(e);
+  }
+  _onmessage = (e) => {
+    // console.log('_onmessage fn is called');
+    // console.log(e.data);
+    this.setState({
+      ...this.state,
+      socketData: e.data
+    });
+    this.sendUpdateToUI();
+  }
+  _onclose = () => {
+    this.sendUpdateToUI();
+    console.log('_onclose fn is called');
+  }
+
+  componentDidMount() {
+    // const wsToken = "eyJwdWJsaWNfa2V5IjpudWxsfQ.DZ-U-g.iVzQO6GqWEtwx0O_6EhB_91dEGA";
+    this.connect("");
+    /* Using the API service for getting the token */
+    getToken(this.showApiMsg);
   }
 
   render() {
@@ -74,6 +106,7 @@ class SocketConnection extends Component {
   }
 }
 
+/* Subscribing to the STORE for real time updates */
 const mapStateToProps = (state) => {
   return {
     socketData: state.socketData.socketData

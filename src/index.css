@@ -24,115 +24,16 @@ h1, h2, h3, h4, h5, h6, p {
 .flex-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .printing-container {
   width: 800px;
   height: 480px;
   margin: 0 auto;
-  /* border: 1px solid black; */
-  /* background-color: skyblue; */
   background: linear-gradient(to bottom, white, white, skyblue, white);
-}
-
-.nav-bar {
-  width: 100%;
-  height: 56px;
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-}
-
-.current-state {
-  line-height: 36px;
-  vertical-align: middle;
-  letter-spacing: 1px;
-  font-size: 25px;
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.print-details {
-  padding: 20px 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-}
-
-.name-percent {
-  font-size: 20px;
-  justify-content: space-between;
-}
-
-.percent {
-  font-size: 30px;
-  font-weight: bold;
-  color: orangered;
-}
-
-progress[value] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 25px;
-  margin: 10px 0;
-}
-
-progress[value]::-webkit-progress-bar {
-  background-color: #eee;
-  border-radius: 2px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-}
-
-progress[value]::-webkit-progress-value {
-  background-image:
-	   -webkit-linear-gradient(-45deg, 
-	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
-	                           rgba(0,0, 0, .1) 66%, transparent 66%),
-	   -webkit-linear-gradient(top, 
-	                           rgba(255, 255, 255, .25), 
-	                           rgba(0, 0, 0, .25)),
-	   -webkit-linear-gradient(left, #09c, #f44);
-
-    border-radius: 2px; 
-    background-size: 35px 20px, 100% 100%, 100% 100%;
-}
-
-.layer-time-details {
-  padding: 20px;
-}
-
-.layers,
-.time {
-  width: 50%;
-  text-align: center;
-}
-
-.layer-count,
-.time-value {
-  font-size: 30px;
-  padding: 10px;
-}
-
-.temp-details {
-  justify-content: space-around;
-  padding: 10px;
-  text-align: center;
-}
-
-.temp-box {
-  /* border: 2px solid black; */
-  border-radius: 20px;
-  padding-top: 10px;
-  width: 180px;
-  background: #f9f9f9;
-  box-shadow: 0 0 10px 3px black;
-}
-
-.temps {
-  font-size: 20px;
-  padding: 20px;
 }

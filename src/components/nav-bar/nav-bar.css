@@ -1,0 +1,7 @@
+.global-nav-bar {
+  width: 100%;
+  height: 56px;
+  /* padding: 10px 20px 10px 0; */
+  background-color: black;
+  color: white;
+}

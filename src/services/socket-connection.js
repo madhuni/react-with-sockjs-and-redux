@@ -33,7 +33,7 @@ class SocketConnection extends Component {
     if (this.state.socketData !== null) {
       for (const prop in this.state.socketData) {
         const currentData = this.state.socketData[prop];
-        // console.log(currentData);
+        console.log(currentData);
         switch (prop) {
           case 'connected':
             axios.defaults.headers.common['X-Api-Key'] = currentData['apikey'];
@@ -42,8 +42,10 @@ class SocketConnection extends Component {
           case 'current':
             const currentState = currentData.state.text;
             const printProgress = currentData.progress;
+            const flags = currentData.state.flags;
             this.props.onUpdatePrinterState(currentState);
             this.props.onUpdatePrintProgress(printProgress);
+            this.props.onUpdateFlags(flags);
 
             if (currentData.temps.length !== 0) {
               const temps = currentData.temps[currentData.temps.length - 1];
@@ -53,6 +55,16 @@ class SocketConnection extends Component {
             if (currentData.job !== null) {
               const job = currentData.job;
               this.props.onUpdateJobDetails(job);
+            }
+            break;
+          
+          case 'event':
+            const type = currentData['type'];
+            const payload = currentData['payload']
+
+            if (type === 'ToolChange') {
+              console.log(payload);
+              // this.props.onToolChange(payload);
             }
             break;
         
@@ -130,6 +142,14 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateJobDetails: (job) => {dispatch({
       type: 'UPDATE_JOB_DETAILS',
       value: job
+    })},
+    onUpdateFlags: (flags) => {dispatch({
+      type: 'UPDATE_FLAGS',
+      value: flags
+    })},
+    onToolChange: (payload) => {dispatch({
+      type: 'UPDATE_TOOL',
+      value: 'tool0'
     })}
   }
 };

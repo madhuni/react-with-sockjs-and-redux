@@ -12,6 +12,8 @@ const initializeState = {
     usbStatus: false,
     printProgress: {},
     job: {},
+    flags: {},
+    currentTool: null,
     temps: {
       bed: {
         actual: null,
@@ -73,6 +75,33 @@ const reducer = (state = initializeState, action) => {
         job: action.value
       }
     }
+  }
+
+  if (action.type === 'UPDATE_FLAGS') {
+    return {
+      socketData: {
+        ...state.socketData,
+        flags: action.value
+      }
+    }
+  }
+
+  if (action.type === 'UPDATE_TOOL') {
+    if (action.value === 1) {
+      return {
+        socketData: {
+          ...state.socketData,
+          currentTool: 'tool1'
+        }
+      }
+    } else if (action.value === 0) {
+      return {
+        socketData: {
+          ...state.socketData,
+          currentTool: 'tool0'
+        }
+      }
+    } 
   }
   return state;
 };

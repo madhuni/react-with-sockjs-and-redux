@@ -1,40 +1,28 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Route, NavLink, Switch } from "react-router-dom";
 
-import Comp from "./container/comp";
 import SocketConnection from './services/socket-connection';
-import ReceiveUpdate from './container/receive-update';
+import Home from './container/home/home';
+import getInitialData from './services/api/get-initial-data';
+import ManualControl from './container/manual-control/manual-control';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  onGetInitialData = (res) => {
+    const initialData = res;
+    this.props.onInitialLoad(initialData);
   }
+
   componentDidMount() {
-    let initialData = null;
     /**
      * Fetching the Initial Data once the App component is mounted
-     * 
-     * Once the initial data is fetched, this value will be set to
-     * the State in our Redux Store.
     */
-    axios.get('http://192.168.1.106:5000/')
-      .then(res => {
-        // console.log(res);
-        initialData = res;
-        /* Calling the Action Dispatch funtion */
-        this.props.onInitialLoad(initialData);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    
-    /* Calling the socketData service once the app is mounted */
-    // socketData();
+    getInitialData(this.onGetInitialData);
   }
 
   render() {
-    console.log(this.props.initialData);
     let appHeading;
     if (this.props.initialData) {
       appHeading = <h1>InitialData is set to somethings</h1>
@@ -43,11 +31,15 @@ class App extends Component {
     }
     return (
       <div>
-        {/* {appHeading} */}
-        <SocketConnection />
-        {/* <Comp /> */}
-        <ReceiveUpdate />
+        <Router>
+          <div className="app">
+            <SocketConnection />
+            <Route path="/" exact component={Home} />
+            <Route path="/control" exact component={ManualControl} />
+          </div>
+        </Router>
       </div>
+
     );
   }
 }

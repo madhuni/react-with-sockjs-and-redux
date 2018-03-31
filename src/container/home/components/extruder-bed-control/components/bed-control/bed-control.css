@@ -1,0 +1,13 @@
+.bed-panel {
+  width: 80%;
+  align-items: center;
+  justify-content: space-center;
+  background-color: #e6e6e6;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 1px black;
+}
+
+.bed-panel .temp-details {
+  margin-right: 24px;
+}

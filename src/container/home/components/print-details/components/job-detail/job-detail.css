@@ -1,0 +1,11 @@
+.job-detail {
+  width: 50%;
+}
+
+.job-detail__type {
+  padding: 5px 0;
+}
+
+.job-detail__value {
+  font-size: 30px;
+}

@@ -1,0 +1,8 @@
+.extruder-bed-area {
+  width: 55%;
+  padding: 0 5px;
+  background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, .6),
+    rgba(0, 0, 0, .9),
+    rgba(0, 0, 0, 1));
+}

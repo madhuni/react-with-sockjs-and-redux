@@ -1,0 +1,62 @@
+.extruder-panel {
+  align-items: center;
+  justify-content: space-around;
+  background-color: #e6e6e6;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 1px black;
+  padding-right: 5px;
+}
+
+.extruder-panel:not(:last-child) {
+  margin-top: 10px;
+}
+
+.temp-details {
+  text-align: center;
+  width: 120px;
+}
+
+.extruder-name,
+.extrude-action {
+  font-weight: bold;
+  font-size: 12px;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.temps {
+  font-size: 22px;
+  padding: 5px 0;
+}
+
+.switch {
+  box-shadow: 4px 4px 2px 0 black;
+  transition: all .1s ease;
+}
+
+.switch:active {
+  box-shadow: 1px 1px 0 0 black;
+  transform: translateY(1px);
+}
+
+.switch:not(:last-child) {
+  margin-right: 10px;
+}
+
+.heating-switch {
+  border-radius: 12px;
+}
+
+.cooling-switch {
+  border-left: 1px solid #2f89d1;
+  border-top: 1px solid #2f89d1;
+  border-radius: 12px;
+}
+
+.extrude-switch {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-radius: 12px;
+  margin-left: 10px;
+}

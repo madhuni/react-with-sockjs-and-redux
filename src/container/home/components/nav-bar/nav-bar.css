@@ -1,0 +1,43 @@
+.nav-bar {
+  width: 100%;
+  height: 56px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+}
+
+.current-state {
+  width: 35%;
+  line-height: 36px;
+  vertical-align: middle;
+  letter-spacing: 1px;
+  font-size: 20px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.controls {
+  padding: 0 20px;
+}
+
+.route-btn {
+  width: 130px;
+  padding: 5px;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: bold;
+  border-radius: 3px;
+  outline: none;
+  background-color: #d8d8d8;
+}
+
+.route-btn a {
+  text-decoration: none;
+  color: black;
+  outline: none;
+}
+
+.route-btn a:active {
+  outline: none;
+}

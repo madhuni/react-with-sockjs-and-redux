@@ -1,0 +1,19 @@
+.xy-control-container {
+  width: 70%;
+}
+
+.xy-controls {
+  margin: 30px auto;
+  padding: 20px 60px;
+  background: #3a3a3a;
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+}
+
+.xy-control-container button {
+  margin: 5px;
+  transition: box-shadow .1s ease;
+}
+
+.xy-control-container button:active {
+  transform: translateY(2px);
+}

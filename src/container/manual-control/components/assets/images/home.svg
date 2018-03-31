@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-4022.152 2937.106 108.995 108.995">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #000;
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        filter: url(#Path_2425);
+      }
+
+      .cls-4 {
+        filter: url(#Path_2424);
+      }
+
+      .cls-5 {
+        filter: url(#Rectangle_2358);
+      }
+    </style>
+    <filter id="Rectangle_2358" x="-4022.152" y="2937.106" width="108.995" height="108.995" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_2424" x="-4004.652" y="2960.379" width="72.193" height="71.189" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_2425" x="-4013.199" y="2950.944" width="89.546" height="48.411" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-3"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_2211" data-name="Group 2211" transform="translate(-4013.152 2943.106)">
+    <g class="cls-5" transform="matrix(1, 0, 0, 1, 4013.15, -2943.11)">
+      <rect id="Rectangle_2358-2" data-name="Rectangle 2358" class="cls-1" width="90.995" height="90.995" rx="8" transform="translate(-4013.15 2943.11)"/>
+    </g>
+    <g id="house-with-chimney" transform="translate(10.111 15.086)">
+      <g id="Group_2209" data-name="Group 2209" transform="translate(0 0)">
+        <g class="cls-4" transform="matrix(1, 0, 0, 1, 4003.04, -2958.19)">
+          <path id="Path_2424-2" data-name="Path 2424" class="cls-2" d="M74.165,142.026v31.458h52.193V142.026l-26.1-19.483Z" transform="translate(-4068.82 2845.08)"/>
+        </g>
+        <g class="cls-3" transform="matrix(1, 0, 0, 1, 4003.04, -2958.19)">
+          <path id="Path_2425-2" data-name="Path 2425" class="cls-2" d="M68.521,64.107l-7.809-5.2-9.153-6.872L34.379,39.14.7,64.112a1.775,1.775,0,0,0,2.15,2.826L34.393,43.589l32,23.356a1.775,1.775,0,1,0,2.131-2.838Z" transform="translate(-4003.04 2919.05)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

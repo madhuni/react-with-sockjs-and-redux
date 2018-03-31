@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Route, NavLink, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import SocketConnection from './services/socket-connection';
 import Home from './container/home/home';

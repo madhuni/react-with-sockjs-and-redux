@@ -3,7 +3,7 @@ import axios from 'axios';
 const extrudeFilament = () => {
   const data = {
     command: "extrude",
-    amount: 100,
+    amount: 10,
     speed: 3
   };
 

@@ -1,6 +1,7 @@
 .manual-control-container {
   width: 800px;
   height: 480px;
+  margin: 0 auto;
   overflow: hidden;
   background: linear-gradient(to bottom, 
     rgba(0, 0, 0, .6),

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+// import { BrowserRouter as Router } from "react-router-dom";
 import { Route } from "react-router-dom";
+import { withRouter } from 'react-router-dom'; 
 
 import SocketConnection from './services/socket-connection';
 import Home from './container/home/home';
@@ -30,15 +31,12 @@ class App extends Component {
     }
     return (
       <div>
-        <Router>
-          <div className="app">
-            <SocketConnection />
-            <Route path="/" exact component={Home} />
-            <Route path="/control" exact component={ManualControl} />
-          </div>
-        </Router>
+        <div className="app">
+          <SocketConnection />
+          <Route path="/" exact component={Home} />
+          <Route path="/control" exact component={ManualControl} />
+        </div>
       </div>
-
     );
   }
 }
@@ -59,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

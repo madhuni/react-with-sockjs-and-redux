@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { combineReducers } from "redux";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import axios from "axios";
 
@@ -29,7 +30,9 @@ const dest = document.getElementById('root');
 ReactDOM.render(
   /* Sharing the 'store' with the whole Application with 'Provider' higher order function */
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   dest
 );

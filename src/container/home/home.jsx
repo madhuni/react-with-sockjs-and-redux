@@ -5,12 +5,9 @@ import './home.css';
 
 /* Importing all the API services */
 import reconnectPrinter from '../../services/api/reconnect-printer';
-// import homeExtruderBed from '../../services/api/home-extruder-bed';
 import switchTool from '../../services/api/switch-tool';
 import tempExtruder from '../../services/api/temp-extruder';
 import tempBed from '../../services/api/temp-bed';
-import extrudeFilament from '../../services/api/extrude-filament';
-// import jogging from '../../services/api/jogging';
 import pauseCancelPrint from '../../services/api/pause-cancel-print';
 
 /* Importing the components */
@@ -47,8 +44,12 @@ class ReceiveUpdate extends Component {
     tempBed(temp);
   }
 
-  onExtrudeFilament = () => {
-    extrudeFilament();
+  onExtrudeFilament = (tool) => {
+    /**
+     * On Extrusion command, first switchinng the tool,
+     * then Extruding the filament
+    */
+    this.onSwitchTool(tool);
   }
 
   onPauseCancelPrint = (action) => {
@@ -129,9 +130,8 @@ class ReceiveUpdate extends Component {
         <NavBar
           currentState={this.state.currentState}
           reconnectPrinter={this.onReconnectPrinter}
-          tool0={() => this.onSwitchTool('tool0')}
-          tool1={() => this.onSwitchTool('tool1')}
           currentTool={this.state.currentTool}
+          flags={this.state.flags}
         />
         <div className="print-extruder-area flex-row">
           <PrintDetails
@@ -154,7 +154,8 @@ class ReceiveUpdate extends Component {
             coolTool1={() => this.onTempExtruder('tool1', 0)}
             heatBed={() => this.onTempBed(70)}
             coolBed={() => this.onTempBed(0)}
-            extrudeTool={this.onExtrudeFilament}
+            extrudeTool1={() => this.onExtrudeFilament('tool0')}
+            extrudeTool2={() => this.onExtrudeFilament('tool1')}
           />
         </div>
       </div>

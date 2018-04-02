@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import extrudeFilament from './extrude-filament';
+
 const switchTool = (tool) => {
   const data = {
     command: 'select',
@@ -8,6 +10,8 @@ const switchTool = (tool) => {
   axios.post('printer/tool', data)
     .then(res => {
       console.log(res);
+      // extruding the Filament when the Tool is changed successfully
+      extrudeFilament();
     })
     .catch((error) => {
       if (error.response) {

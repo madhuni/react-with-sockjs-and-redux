@@ -24,7 +24,7 @@ const extruderBedControl = (props) => {
         target={props.tool0 !== null ? Math.round(props.tool0.target) : '--'}
         heat={props.heatTool0}
         cool={props.coolTool0}
-        extrude={props.extrudeTool}
+        extrude={props.extrudeTool1}
         />
       <ExtruderControl
         img={exd2Image}
@@ -36,7 +36,7 @@ const extruderBedControl = (props) => {
         target={props.tool1 !== null ? Math.round(props.tool1.target) : '--'}
         heat={props.heatTool1}
         cool={props.coolTool1}
-        extrude={props.extrudeTool}
+        extrude={props.extrudeTool2}
         />
       <BedControl
         img={bedImage}

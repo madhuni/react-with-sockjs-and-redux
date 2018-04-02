@@ -34,8 +34,8 @@ class ManualControl extends Component {
         </NavBar>
         <div className="control-area flex-row">
           <XYControl
-            xRight={() => this.onJogging("x", 1, 50)}
-            xLeft={() => this.onJogging("x", -1, 50)}
+            xLeft={() => this.onJogging("x", 1, 50)}
+            xRight={() => this.onJogging("x", -1, 50)}
             yBack={() => this.onJogging("y", 1, 50)}
             yForward={() => this.onJogging("y", -1, 50)}
             home={() => this.onHome('home', ['x', 'y'])}

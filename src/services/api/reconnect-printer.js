@@ -1,21 +1,34 @@
 import axios from 'axios';
 
 const reconnectPrinter = (tool, temp) => {
-  const data = {
-    command: "connect",
-    port: "/dev/cu.usbmodem1411",
-    baudrate: "115200",
-    autoconnect: true
-  };
-
-  axios.post('connection', data)
+  axios.get('connection')
     .then(res => {
-      console.log(res);
+      // console.log(res);
+      const ports = Object.keys(res.data.options.ports);
+      // console.log(ports);
+      const port = ports[0];
+      const data = {
+        command: "connect",
+        port: port,
+        baudrate: "115200",
+        autoconnect: true
+      };
+    
+      axios.post('connection', data)
+        .then(res => {
+          console.log(res);
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+        });
     })
     .catch((error) => {
       if (error.response) {
         console.log(error.response);
-        // return error.response;
       } else {
         console.log(error);
       }

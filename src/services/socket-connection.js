@@ -33,7 +33,7 @@ class SocketConnection extends Component {
     if (this.state.socketData !== null) {
       for (const prop in this.state.socketData) {
         const currentData = this.state.socketData[prop];
-        console.log(currentData);
+        // console.log(currentData);
         switch (prop) {
           case 'connected':
             axios.defaults.headers.common['X-Api-Key'] = currentData['apikey'];
@@ -78,6 +78,7 @@ class SocketConnection extends Component {
 
   connect = (token) => {
     const sockJsURI = 'http://0.0.0.0:5000/sockjs';
+    // const sockJsURI = 'http://192.168.1.108:5000/sockjs';
     var options = {
       debug: true
     };

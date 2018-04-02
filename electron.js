@@ -12,7 +12,7 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 480,
-    frame: false,
+    frame: true,
     resizable: false,
     webPreferences: {
       devTools: false

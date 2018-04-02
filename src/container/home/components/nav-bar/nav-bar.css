@@ -7,7 +7,7 @@
 }
 
 .current-state {
-  width: 35%;
+  width: 60%;
   line-height: 36px;
   vertical-align: middle;
   letter-spacing: 1px;
@@ -22,20 +22,22 @@
 }
 
 .route-btn {
-  width: 130px;
-  padding: 5px;
-  font-size: 20px;
-  line-height: 26px;
-  font-weight: bold;
+  width: 150px;
   border-radius: 3px;
   outline: none;
-  background-color: #d8d8d8;
+  background-color: white;
+  align-items: center;
 }
 
 .route-btn a {
+  width: 114px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
   text-decoration: none;
   color: black;
   outline: none;
+  display: inline-block;
 }
 
 .route-btn a:active {

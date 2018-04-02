@@ -33,8 +33,8 @@ class App extends Component {
       <div>
         <div className="app">
           <SocketConnection />
-          <Route path="/" exact component={Home} />
           <Route path="/control" exact component={ManualControl} />
+          <Route path="/" exact component={Home} />
         </div>
       </div>
     );

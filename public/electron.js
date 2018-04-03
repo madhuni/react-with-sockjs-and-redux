@@ -13,7 +13,8 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 480,
-    frame: true,
+    frame: false,
+    transparent: false,
     resizable: false,
     show: false,
     webPreferences: {
@@ -25,10 +26,13 @@ function createWindow() {
   splash = new BrowserWindow({
     width: 800,
     height: 480,
-    transparent: true,
+    transparent: false,
     frame: false,
     resizable: false,
-    alwaysOnTop: true
+    alwaysOnTop: true,
+    webPreferences: {
+      devTools: false
+    }
   });
 
   // loading the 'splash.html' page for the Splash Window
@@ -36,11 +40,24 @@ function createWindow() {
   win.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
 
   // Once the main window is ready to serve, destryoing the splash window
+
+  /* Settings for Mac and Windows Builds */
+  // win.once('ready-to-show', () => {
+  //   setTimeout(() => {
+  //     splash.destroy();
+  //     win.show();
+  //   }, 5000);
+  // });
+
+  /* Settings for Raspberry PI Build */
   win.once('ready-to-show', () => {
     setTimeout(() => {
-      splash.destroy();
+      splash.alwaysOnTop = false;
+      splash.hide();
       win.show();
     }, 5000);
+    // splash.destroy();
+    // win.show();
   });
 
   win.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
@@ -53,7 +70,11 @@ function createWindow() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    win = null
+    win = null;
+    splash.show();
+    setTimeout(() => {
+      splash.destroy();
+    }, 2000);
   })
 }
 
@@ -67,7 +88,6 @@ app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
-    splash.quit()
     app.quit()
   }
 })

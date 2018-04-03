@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { BrowserRouter as Router } from "react-router-dom";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { withRouter } from 'react-router-dom'; 
 
 import SocketConnection from './services/socket-connection';
@@ -33,8 +33,10 @@ class App extends Component {
       <div>
         <div className="app">
           <SocketConnection />
-          <Route path="/control" exact component={ManualControl} />
-          <Route path="/" exact component={Home} />
+          <Switch>
+            <Route path="/control" exact component={ManualControl} />
+            <Route path="/" exact component={Home} />
+          </Switch>
         </div>
       </div>
     );

@@ -6,7 +6,7 @@
   font-weight: bold;
   background-color: orange;
   border-radius: 10px;
-  box-shadow: 9px 8px 8px -3px white;
+  border: none;
   outline: none;
   transition: all .1s ease;
   text-align: center;
@@ -17,9 +17,7 @@
 }
 
 .btn:active {
-  box-shadow: 4px 4px 8px -3px white;
   outline: none;
-  transform: translateY(2px);
 }
 
 .btn--danger {
@@ -33,7 +31,7 @@
 
 .btn--control {
   width: 150px;
-  padding: 5px;
+  padding: 6px;
   font-size: 20px;
   font-weight: bold;
   border-radius: 3px;

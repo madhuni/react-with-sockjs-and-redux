@@ -16,6 +16,15 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
 
+button {
+  outline: none !important;
+  border: none !important;
+}
+
+button:active {
+  transform: scale(.93) !important;
+}
+
 .alert-text {
   color: orangered;
   font-weight: bold;

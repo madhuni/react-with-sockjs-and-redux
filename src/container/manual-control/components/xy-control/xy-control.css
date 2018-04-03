@@ -15,5 +15,5 @@
 }
 
 .xy-control-container button:active {
-  transform: translateY(2px);
+  transform: scale(.87);
 }

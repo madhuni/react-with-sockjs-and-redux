@@ -6,25 +6,42 @@ const isDev = require('electron-is-dev')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+let splash
 
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 800,
     height: 480,
-    frame: false,
+    frame: true,
     resizable: false,
+    show: false,
     webPreferences: {
       devTools: false
     }
   })
 
-  // and load the index.html of the app.
-  // win.loadURL(url.format({
-  //   pathname: path.join('./', 'index.html'),
-  //   protocol: 'file:',
-  //   slashes: true
-  // }))
+  // Adding a new BrowserWindow for the Splash screen
+  splash = new BrowserWindow({
+    width: 800,
+    height: 480,
+    transparent: true,
+    frame: false,
+    resizable: false,
+    alwaysOnTop: true
+  });
+
+  // loading the 'splash.html' page for the Splash Window
+  splash.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
+  win.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
+
+  // Once the main window is ready to serve, destryoing the splash window
+  win.once('ready-to-show', () => {
+    setTimeout(() => {
+      splash.destroy();
+      win.show();
+    }, 5000);
+  });
 
   win.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
 
@@ -50,6 +67,7 @@ app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
+    splash.quit()
     app.quit()
   }
 })

@@ -6,6 +6,7 @@ const isDev = require('electron-is-dev')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+let splash
 
 function createWindow() {
   // Create the browser window.
@@ -14,8 +15,9 @@ function createWindow() {
     height: 480,
     frame: true,
     resizable: false,
+    show: false,
     webPreferences: {
-      devTools: false
+      devTools: true
     }
   })
 
@@ -26,7 +28,27 @@ function createWindow() {
   //   slashes: true
   // }))
 
+  splash = new BrowserWindow({
+    width: 800,
+    height: 480,
+    transparent: true,
+    frame: false,
+    resizable: false,
+    alwaysOnTop: true,
+    webPreferences: {
+      devTools: true
+    }
+  });
+
+  splash.loadURL(`file://${path.join(__dirname, './public/splash.html')}`);
   win.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
+
+  win.once('ready-to-show', () => {
+    setTimeout(() => {
+      splash.destroy();
+      win.show();
+    }, 5000);
+  });
 
   // Open the DevTools.
   // win.webContents.openDevTools()

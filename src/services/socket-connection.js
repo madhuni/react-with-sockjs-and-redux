@@ -10,11 +10,9 @@ class SocketConnection extends Component {
     super(props);
     
     this.state = {
-      socketData: null,
+      flags: null,
       apiResponse: null
     };
-
-    // this.updateInterval = setInterval(this.sendUpdateToUI, 1000);
   }
 
   /**
@@ -64,7 +62,6 @@ class SocketConnection extends Component {
 
             if (type === 'ToolChange') {
               console.log(payload);
-              // this.props.onToolChange(payload);
             }
             break;
         
@@ -77,8 +74,8 @@ class SocketConnection extends Component {
   }
 
   connect = (token) => {
-    const sockJsURI = 'http://0.0.0.0:5000/sockjs';
-    // const sockJsURI = 'http://192.168.1.108:5000/sockjs';
+    // const sockJsURI = 'http://0.0.0.0:5000/sockjs';
+    const sockJsURI = 'http://192.168.1.117:5000/sockjs';
     var options = {
       debug: true
     };
@@ -107,9 +104,21 @@ class SocketConnection extends Component {
     console.log('_onclose fn is called');
   }
 
+  resetSocketConnection = () => {
+    const time = 1800; // time to rebuild the socket connection
+
+    this.rebuildConnection = setInterval(() => {
+      this.socket.close();
+      this.connect("");
+    }, time*1000);
+  }
+
   componentDidMount() {
-    // const wsToken = "eyJwdWJsaWNfa2V5IjpudWxsfQ.DZ-U-g.iVzQO6GqWEtwx0O_6EhB_91dEGA";
     this.connect("");
+
+    /* Setting a time interval for refreshing the Socket Connectoin */
+    this.resetSocketConnection();
+
     /* Using the API service for getting the token */
     getToken(this.showApiMsg);
   }

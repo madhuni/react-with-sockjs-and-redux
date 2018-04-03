@@ -7,6 +7,7 @@ import zUp from '../assets/images/z-plus.svg';
 import zDown from '../assets/images/z-minus.svg';
 
 import Button from '../../../../components/button/button';
+import TouchButton from '../../../../components/touch-button/touch-button';
 
 const zControl = (props) => {
   return (
@@ -15,9 +16,9 @@ const zControl = (props) => {
         <tbody>
           <tr>
             <td>
-              <Button clicked={props.zUp}>
+              <TouchButton touched={props.zUp} stop={props.stop}>
                 <img className="control-btn-img" src={zUp} alt="Z-Plus" width="82" height="82" />
-              </Button>
+              </TouchButton>
             </td>
           </tr>
           <tr>
@@ -29,9 +30,9 @@ const zControl = (props) => {
           </tr>
           <tr>
             <td>
-              <Button clicked={props.zDown}>
+              <TouchButton touched={props.zDown} stop={props.stop}>
                 <img className="control-btn-img" src={zDown} alt="Z-Minus" width="82" height="82" />
-              </Button>
+              </TouchButton>
             </td>
           </tr>
         </tbody>

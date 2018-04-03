@@ -9,6 +9,7 @@ import xRight from '../assets/images/x-minus.svg';
 import home from '../assets/images/home.svg';
 
 import Button from '../../../../components/button/button';
+import TouchButton from '../../../../components/touch-button/touch-button';
 
 const xyControl = (props) => {
   return (
@@ -18,17 +19,17 @@ const xyControl = (props) => {
           <tr>
             <td></td>
             <td className="y-plus">
-              <Button clicked={props.yBack}>
+              <TouchButton touched={props.yBack} stop={props.stop}>
                 <img className="control-btn-img" src={yBack} alt="Y-Back" width="82" height="82" />
-              </Button>
+              </TouchButton>
             </td>
             <td></td>
           </tr>
           <tr>
             <td className="x-minus">
-              <Button clicked={props.xRight}>
+              <TouchButton touched={props.xRight} stop={props.stop}>
                 <img className="control-btn-img" src={xLeft} alt="X-Left" width="82" height="82" />
-              </Button>
+              </TouchButton>
             </td>
             <td className="xy-home">
               <Button clicked={props.home}>
@@ -36,17 +37,17 @@ const xyControl = (props) => {
               </Button>
             </td>
             <td className="x-plus">
-              <Button clicked={props.xLeft}>
+              <TouchButton touched={props.xLeft} stop={props.stop}>
                 <img className="control-btn-img" src={xRight} alt="X-Right" width="82" height="82" />
-              </Button>
+              </TouchButton>
             </td>
           </tr>
           <tr>
             <td></td>
             <td className="y-minus">
-              <Button clicked={props.yForward}>
+              <TouchButton touched={props.yForward} stop={props.stop}>
                 <img className="control-btn-img" src={yForward} alt="Y-Forward" width="82" height="82" />
-              </Button>
+              </TouchButton>
             </td>
             <td></td>
           </tr>

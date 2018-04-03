@@ -8,7 +8,7 @@ const jogging = (axes, direction, speed) => {
 
   axios.post('printer/printhead', data)
     .then(res => {
-      console.log(res);
+      console.log(res.config.data);
     })
     .catch((error) => {
       if (error.response) {

@@ -12,6 +12,12 @@ import XYControl from './components/xy-control/xy-control';
 import ZControl from './components/z-control/z-control';
 
 class ManualControl extends Component {
+  constructor(props) {
+    super(props);
+
+    this.init00 = null;
+    this.isMouseDown = false;
+  }
   /**
    * Accessing the API services for Homing and Moving Extruder/Bed
    */
@@ -20,7 +26,32 @@ class ManualControl extends Component {
   }
 
   onJogging = (axes, direction, speed) => {
+    if (this.init00) {
+      clearInterval(this.init00);
+    }
+
     jogging(axes, direction, speed);
+    this.isMouseDown = true;
+
+    if (axes === 'x' || axes === 'y') {
+      if (this.isMouseDown) {
+        this.init00 = setInterval(() => {
+          jogging(axes, direction, speed);
+        }, 30);
+      }
+    } else if (axes === 'z') {
+      if (this.isMouseDown) {
+        this.init00 = setInterval(() => {
+          jogging(axes, direction, speed);
+        }, 420);
+      }
+    }
+  }
+
+  onStopJogging = () => {
+    this.isMouseDown = false;
+    clearInterval(this.init00);
+    this.init00 = null;
   }
 
   render() {
@@ -34,16 +65,18 @@ class ManualControl extends Component {
         </NavBar>
         <div className="control-area flex-row">
           <XYControl
-            xLeft={() => this.onJogging("x", 1, 50)}
-            xRight={() => this.onJogging("x", -1, 50)}
-            yBack={() => this.onJogging("y", 1, 50)}
-            yForward={() => this.onJogging("y", -1, 50)}
+            xLeft={() => this.onJogging("x", 1, 3)}
+            stop={this.onStopJogging}
+            xRight={() => this.onJogging("x", -1, 3)}
+            yBack={() => this.onJogging("y", 1, 3)}
+            yForward={() => this.onJogging("y", -1, 3)}
             home={() => this.onHome('home', ['x', 'y'])}
           />
           <ZControl
-            zUp={() => this.onJogging("z", -1, 50)}
-            zDown={() => this.onJogging("z", 1, 50)}
+            zUp={() => this.onJogging("z", -1, 3)}
+            zDown={() => this.onJogging("z", 1, 3)}
             home={() => this.onHome('home', 'z')}
+            stop={this.onStopJogging}
           />
         </div>
         {/* <button onClick={() => this.onHome('home', ['x', 'y'])}>Home XY</button>

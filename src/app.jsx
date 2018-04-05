@@ -23,12 +23,12 @@ class App extends Component {
   }
 
   render() {
-    let appHeading;
+    /* let appHeading;
     if (this.props.initialData) {
       appHeading = <h1>InitialData is set to somethings</h1>
     } else {
       appHeading = <h1>InitialData is still null</h1>
-    }
+    } */
     return (
       <div>
         <div className="app">

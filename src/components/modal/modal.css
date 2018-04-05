@@ -9,6 +9,15 @@
   border-radius: 10px;
   z-index: 300;
   text-align: center;
+  transition: all .1s ease-in-out;
+}
+
+.modal-open {
+  opacity: 1;
+}
+
+.modal-close {
+  opacity: 0;
 }
 
 .filename {

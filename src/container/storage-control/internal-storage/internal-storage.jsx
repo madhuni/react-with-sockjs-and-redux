@@ -108,8 +108,9 @@ class InternalStorage extends Component {
     );
 
     const alert = (
-      <Backdrop clicked={this.onBackDropClicked}>
+      <Backdrop clicked={this.onBackDropClicked} modalOpen={this.state.modalOpen}>
         <Modal
+          modalOpen={this.state.modalOpen}
           filename={this.state.printFileName}
           print={() => this.onPrintClicked(this.state.printFileName)}
           delete={() => this.onDeleteClicked(this.state.printFileName)}
@@ -132,7 +133,8 @@ class InternalStorage extends Component {
 
     return(
       <div className="internal-storage-container">
-        {this.state.modalOpen ? alert : null}
+        {/* {this.state.modalOpen ? alert : null} */}
+        {alert}
         <NavBar>
           <NavLink exact to="/">
             <img src={backBtn} alt="Back" width="56" height="56" />

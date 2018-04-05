@@ -5,8 +5,14 @@ import './modal.css';
 import Button from '../button/button';
 
 const modal = (props) => {
+  const modalClass = ['modal'];
+  if (props.modalOpen) {
+    modalClass.push('modal-open');
+  } else {
+    modalClass.push('modal-close');
+  }
   return (
-    <div className="modal" onClick={(event) => event.stopPropagation()}>
+    <div className={modalClass.join(" ")} onClick={(event) => event.stopPropagation()}>
       <p className="filename">{props.filename}</p>
       <p className="question">Do you want to continue print?</p>
       <div className="action-btns">

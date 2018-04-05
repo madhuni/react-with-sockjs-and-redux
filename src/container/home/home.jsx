@@ -9,6 +9,7 @@ import switchTool from '../../services/api/switch-tool';
 import tempExtruder from '../../services/api/temp-extruder';
 import tempBed from '../../services/api/temp-bed';
 import pauseCancelPrint from '../../services/api/pause-cancel-print';
+// import getGcodeData from '../../services/api/get-gcode-data';
 
 /* Importing the components */
 import NavBar from './components/nav-bar/nav-bar';
@@ -21,6 +22,7 @@ class ReceiveUpdate extends Component {
     flags: null,
     jobName: null,
     timeTaken: null,
+    timeRemaining: null,
     totalLayer: null,
     currentState: null,
     totalTime: null,
@@ -60,6 +62,15 @@ class ReceiveUpdate extends Component {
     reconnectPrinter();
   }
 
+  // onReceiveLayerCount = (res) => {
+  //   const totalLayer = res.data.gcode_data.total_layers;
+  //   this.setState({
+  //     ...this.state,
+  //     totalLayer: totalLayer
+  //   });
+  //   // console.log('totalLayers are : ', totalLayer);
+  // }
+
   formatTime = (seconds) => {
     if (seconds === null || isNaN(seconds)) {
       return ['--', '--', '--'];
@@ -94,6 +105,7 @@ class ReceiveUpdate extends Component {
 
   initialSetup = () => {
     const data = this.props.socketData;
+    // console.log(data);
 
     if (data !== null) {
       this.setState({
@@ -101,7 +113,7 @@ class ReceiveUpdate extends Component {
         jobName: this.getJobName(data.job.file) === null ? "No Job To Print" : this.getJobName(data.job.file),
         totalLayer: this.getTotalLayer(data.job.layerCount),
         timeTaken: this.formatTime(data.printProgress.printTime),
-        timeRemaining: this.formatTime(),
+        timeRemaining: this.formatTime(data.printProgress.printTimeLeft),
         currentState: (data.currentState !== null) ? data.currentState : "Checking the status...",
         totalTime: data.estimatedPrintTime,
         printProgress: !isNaN(data.printProgress.completion) ? Math.round(data.printProgress.completion * 10) / 10 : "0",
@@ -124,6 +136,14 @@ class ReceiveUpdate extends Component {
     // console.log(this.state.currentTool);
   }
 
+  componentDidUpdate() {
+    // console.log('componentDidUpdate is called');
+    // if (this.state.flags && this.state.flags.printing) {
+    //   const printFileName = this.state.jobName;
+    //   getGcodeData(this.onReceiveLayerCount, printFileName);
+    // }
+  }
+
   render() {
     return (
       <div className="printing-container">
@@ -140,6 +160,7 @@ class ReceiveUpdate extends Component {
             currentLayer={this.state.currentLayer}
             totalLayer={this.state.totalLayer}
             timeTaken={this.state.timeTaken}
+            timeRemaining={this.state.timeRemaining}
             pausePrint={() => this.onPauseCancelPrint('pause')}
             cancelPrint={() => this.onPauseCancelPrint('cancel')}
             flags={this.state.flags}

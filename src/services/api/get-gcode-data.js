@@ -8,16 +8,17 @@ const getGcodeData = (callback, filename) => {
      * the State in our Redux Store.
     */
 
-  const fileNames = [
-    '3hr_print.gcode',
-    '2hr_print.gcode',
-    '3min_print.gcode',
-    'ERAY_electron_testing.gcode',
-    'ERAY_20mmTestCuberepaired.gcode',
-    'ERAY_darthvader_lowpoly_body.gcode',
-    'RAY_InceptionTopFinal.gcode',
-    'Chess_Board_dual.gcode'
-  ];
+  /* Array of fileNames for testing purposes */
+  // const fileNames = [
+  //   '3hr_print.gcode',
+  //   '2hr_print.gcode',
+  //   '3min_print.gcode',
+  //   'ERAY_electron_testing.gcode',
+  //   'ERAY_20mmTestCuberepaired.gcode',
+  //   'ERAY_darthvader_lowpoly_body.gcode',
+  //   'RAY_InceptionTopFinal.gcode',
+  //   'Chess_Board_dual.gcode'
+  // ];
 
   axios.get('/gcode_data/local/' + filename)
     .then(res => {

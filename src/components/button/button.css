@@ -42,8 +42,17 @@
   margin-right: 10px;
 }
 
+.btn--no-radius {
+  border-radius: 0;
+}
+
 .btn--green {
   background-color: #01b901;
+}
+
+.btn--gray {
+  background-color: gray;
+  color: white;
 }
 
 .active {

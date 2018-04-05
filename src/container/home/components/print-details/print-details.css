@@ -2,8 +2,6 @@
   width: 45%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, .6), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1));
   color: white;
-  /* justify-content: center; */
-  /* align-items: center; */
 }
 
 .print-details {
@@ -31,7 +29,12 @@
   padding: 15px 10px;
 }
 
-.print-controls {
+.print-controls,
+.storage-controls {
   text-align: center;
   justify-content: center;
+}
+
+.storage-controls a:not(:last-child) {
+  margin-right: 10px;
 }

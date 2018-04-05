@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CircularProgressbar from "react-circular-progressbar";
 /* Styles for the 'CircularProgressBar' */
 import 'react-circular-progressbar/dist/styles.css';
@@ -11,6 +11,7 @@ import Button from '../../../../components/button/button';
 const printDetails = (props) => {
   let layerCount;
   let timeTaken;
+  let timeRemaining;
 
   if (props.currentLayer !== undefined && props.totalLayer !== undefined) {
     const currentLayer = props.currentLayer !== null ? props.currentLayer : '_';
@@ -22,6 +23,10 @@ const printDetails = (props) => {
 
   if (props.timeTaken !== null) {
     timeTaken = props.timeTaken[0] + ":" + props.timeTaken[1] + ":" + props.timeTaken[2];
+  }
+
+  if (props.timeRemaining !== null) {
+    timeRemaining = props.timeRemaining[0] + ":" + props.timeRemaining[1] + ":" + props.timeRemaining[2];
   }
 
   const printControls = (
@@ -38,7 +43,8 @@ const printDetails = (props) => {
         <CircularProgressbar className="print-progress" percentage={props.printProgress}/>
         <div className="layer-time-container flex-row">
           <JobDetail data={layerCount} type={"Layers"}/>
-          <JobDetail data={timeTaken} type={"Total Time Taken"}/>
+          <JobDetail data={timeTaken} type={"Time Taken"}/>
+          <JobDetail data={timeRemaining} type={"Time Left"}/>
         </div>
       </div>
       { props.flags !== null ? (props.flags.printing || props.flags.paused ? printControls : null) : null }

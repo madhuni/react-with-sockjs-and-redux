@@ -1,0 +1,29 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 200px;
+  background: white;
+  border-radius: 10px;
+  z-index: 300;
+  text-align: center;
+}
+
+.filename {
+  font-size: 30px;
+  padding: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.question {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.action-btns {
+  padding: 5px;
+}

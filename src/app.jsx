@@ -8,6 +8,8 @@ import SocketConnection from './services/socket-connection';
 import Home from './container/home/home';
 import getInitialData from './services/api/get-initial-data';
 import ManualControl from './container/manual-control/manual-control';
+import ExternalStorage from './container/storage-control/external-storage/external-storage';
+import InternalStorage from './container/storage-control/internal-storage/internal-storage';
 
 class App extends Component {
   onGetInitialData = (res) => {
@@ -35,6 +37,8 @@ class App extends Component {
           <SocketConnection />
           <Switch>
             <Route path="/control" exact component={ManualControl} />
+            <Route path="/internal-storage" exact component={InternalStorage} />
+            <Route path="/external-storage" exact component={ExternalStorage} />
             <Route path="/" exact component={Home} />
           </Switch>
         </div>

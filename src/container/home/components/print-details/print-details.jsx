@@ -1,12 +1,16 @@
 import React from 'react';
+import { NavLink, Route, Switch } from 'react-router-dom';
 import CircularProgressbar from "react-circular-progressbar";
 /* Styles for the 'CircularProgressBar' */
 import 'react-circular-progressbar/dist/styles.css';
 
-
 import './print-details.css';
 import JobDetail from './components/job-detail/job-detail';
 import Button from '../../../../components/button/button';
+import NavLinkBtn from '../../../../components/nav-link-btn/nav-link-btn';
+
+import InternalStorageIcon from '../../../../assets/images/hardisk-icon.svg'; 
+import UsbStorageIcon from '../../../../assets/images/usb-icon.svg'; 
 
 const printDetails = (props) => {
   let layerCount;
@@ -36,6 +40,23 @@ const printDetails = (props) => {
     </div>
   );
 
+  const storageControls = (
+    <div className="storage-controls flex-row">
+      <NavLink exact to='/internal-storage'>
+        <NavLinkBtn>
+          <img src={InternalStorageIcon} alt="Hardisk" width="56" height="56"/>
+          <span>Internal</span>
+        </NavLinkBtn>
+      </NavLink>
+      <NavLink exact to='/external-storage'>
+        <NavLinkBtn>
+          <img src={UsbStorageIcon} alt="Usb" width="56" height="56" />
+          <span>External</span>
+        </NavLinkBtn>
+      </NavLink>
+    </div>
+  );
+
   return (
     <div className="printing-area flex-col">
       <div className="print-details">
@@ -47,7 +68,7 @@ const printDetails = (props) => {
           <JobDetail data={timeRemaining} type={"Time Left"}/>
         </div>
       </div>
-      { props.flags !== null ? (props.flags.printing || props.flags.paused ? printControls : null) : null }
+      { props.flags !== null ? (props.flags.printing || props.flags.paused ? printControls : storageControls) : null }
     </div>
   );
 };

@@ -1,0 +1,34 @@
+.nav-link-container {
+  width: 160px;
+  height: 56px;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  transition: all .1s ease;
+  text-align: center;
+}
+
+.nav-link-container:active {
+  transform: scale(.87);
+}
+
+.nav-link-container img {
+  width: 56px !important;
+  height: 56px;
+}
+
+.nav-link-container span {
+  display: inline-block;
+  width: calc(100% - 56px);
+  height: 100%;
+  line-height: 56px;
+  vertical-align: middle;
+  font-size: 20px;
+  padding: 0 10px;
+}
+
+.nav-link-container:active {
+  outline: none;
+}

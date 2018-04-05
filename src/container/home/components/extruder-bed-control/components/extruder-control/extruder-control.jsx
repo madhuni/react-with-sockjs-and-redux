@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './extruder-control.css';
 
@@ -7,7 +7,7 @@ const extruderControl = (props) => {
     <div className="extruder-panel flex-row">
       <div className="temp-details">
         <div className="extruder-name">{props.name}</div>
-        <img src={props.img} alt="Extruder Image" width="40" height="40"/>
+        <img src={props.img} alt="Extruder" width="40" height="40"/>
         <div className="temps">
           <span className="actual-temp alert-text">{props.actual}&deg;</span>
           <span> / </span>

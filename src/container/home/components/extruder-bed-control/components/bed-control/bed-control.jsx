@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './bed-control.css';
 
@@ -7,7 +7,7 @@ const bedControl = (props) => {
     <div className="bed-panel flex-row">
       <div className="temp-details">
         <div className="bed-name extruder-name">Bed</div>
-        <img src={props.img} alt="Bed Image" width="60" height="60" />
+        <img src={props.img} alt="Bed" width="60" height="60" />
         <div className="temps">
           <span className="actual-temp alert-text">{props.actual}&deg;</span>
           <span> / </span>

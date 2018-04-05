@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './extruder-bed-control.css';
 import ExtruderControl from './components/extruder-control/extruder-control';

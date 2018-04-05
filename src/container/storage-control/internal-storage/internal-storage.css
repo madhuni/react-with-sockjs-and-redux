@@ -1,0 +1,43 @@
+.internal-storage-container {
+  width: 800px;
+  height: 480px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, .6),
+    rgba(0, 0, 0, .9),
+    rgba(0, 0, 0, 1));
+}
+
+.nav-heading--internal-storage {
+  width: calc(100% - 206px);
+}
+
+.msg {
+  padding: 20px;
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.loading-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: orange;
+  letter-spacing: 2px;
+  width: 80%;
+
+}
+
+.loading-msg {
+  font-size: 20px;
+  padding: 5px 0;
+}
+
+.loading-msg:not(:last-child) {
+  margin-top: 10px;
+}

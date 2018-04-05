@@ -1,0 +1,14 @@
+.file-item {
+  width: 100%;
+  height: 56px;
+  border-bottom: .5px solid gray;
+  line-height: 56px;
+  vertical-align: middle;
+  font-size: 18px;
+  letter-spacing: 1px;
+  padding: 0 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: orange;
+}

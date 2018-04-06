@@ -13,6 +13,8 @@ import Backdrop from '../../../components/backdrop/backdrop';
 import Modal from '../../../components/modal/modal';
 
 import getLocalPrintFiles from '../../../services/api/get-local-print-files';
+import startPrint from '../../../services/api/start-print';
+import deleteLocalFile from '../../../services/api/delete-local-file';
 
 class InternalStorage extends Component {
   constructor(props) {
@@ -41,49 +43,20 @@ class InternalStorage extends Component {
   }
 
   onPrintClicked = (filename) => {
-    const data = {
-      command: "select",
-      print: true
-    };
-
-    axios.post('files/local/' + filename, data)
-      .then(res => {
-        // console.log(res);
-        this.setState({
-          ...this.state,
-          modalOpen: false
-        });
-        this.props.history.goBack();
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log(err.response);
-          // return err.response;
-        } else {
-          console.log(err);
-        }
-      });
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    });
+    this.props.history.goBack();
   }
 
   onDeleteClicked = (filename) => {
-    axios.delete('files/local/' + filename)
-      .then(res => {
-        console.log(res);
-        this.setState({
-          ...this.state,
-          modalOpen: false
-        });
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    });
 
-        getLocalPrintFiles(this.onPrintFilesReceived);
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log(err.response);
-          // return err.response;
-        } else {
-          console.log(err);
-        }
-      });
+    getLocalPrintFiles(this.onPrintFilesReceived);
   }
 
   onBackDropClicked = () => {
@@ -112,8 +85,8 @@ class InternalStorage extends Component {
         <Modal
           modalOpen={this.state.modalOpen}
           filename={this.state.printFileName}
-          print={() => this.onPrintClicked(this.state.printFileName)}
-          delete={() => this.onDeleteClicked(this.state.printFileName)}
+          print={() => startPrint(this.onPrintClicked, this.state.printFileName)}
+          delete={() => deleteLocalFile(this.onDeleteClicked, this.state.printFileName)}
         />
       </Backdrop>
     );

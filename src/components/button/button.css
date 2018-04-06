@@ -16,6 +16,12 @@
   margin-right: 20px;
 }
 
+.btn:disabled {
+  color: black;
+  background: red;
+  opacity: .4;
+}
+
 .btn:active {
   outline: none;
 }

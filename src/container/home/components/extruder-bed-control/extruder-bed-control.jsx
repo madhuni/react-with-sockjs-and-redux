@@ -7,8 +7,8 @@ import BedControl from './components/bed-control/bed-control';
 import bedImage from '../../../../assets/images/bed-plate.svg';
 import exd1Image from '../../../../assets/images/extruder-1.svg';
 import exd2Image from '../../../../assets/images/extruder-2.svg';
-import heatSwitch from '../../../../assets/images/heating-icon.png';
-import coolSwitch from '../../../../assets/images/cooling-icon.png';
+import heatSwitch from '../../../../assets/images/heating-icon.svg';
+import coolSwitch from '../../../../assets/images/cooling-icon.svg';
 import extrudeSwitch from '../../../../assets/images/extrude-icon.png';
 
 const extruderBedControl = (props) => {

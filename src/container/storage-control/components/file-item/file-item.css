@@ -4,11 +4,17 @@
   border-bottom: .5px solid gray;
   line-height: 56px;
   vertical-align: middle;
-  font-size: 18px;
+  font-size: 22px;
+  font-weight: 300;
   letter-spacing: 1px;
   padding: 0 20px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: orange;
+  transition: all .2s ease-in-out;
+}
+
+.file-item:active {
+  transform: scale(.95);
 }

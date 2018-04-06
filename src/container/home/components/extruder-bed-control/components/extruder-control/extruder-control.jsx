@@ -14,12 +14,16 @@ const extruderControl = (props) => {
           <span className="target-temp">{props.target}&deg;</span>
         </div>
       </div>
-      <div className="temp-control">
-        <img src={props.heatSwitch} alt="Heat" width="80" height="80" className="heating-switch switch" onClick={props.heat}/>
-        <img src={props.coolSwitch} alt="Cool" width="80" height="80" className="cooling-switch switch" onClick={props.cool}/>
+      <div className="temp-control flex-row">
+        <div className="heating-switch switch" onClick={props.heat}>
+          <img src={props.heatSwitch} alt="Heat" width="60" height="60" className="image"/>
+        </div>
+        <div className="cooling-switch switch" onClick={props.cool}>
+          <img src={props.coolSwitch} alt="Cool" width="60" height="60" className="image"/>
+        </div>
       </div>
-      <div className="extrude-control">
-        <img src={props.extrudeSwitch} alt="Extruder" width="80" height="80" className="switch extrude-switch" onClick={props.extrude}/>
+      <div className="extrude-control switch extrude-switch" onClick={props.extrude}>
+        <img src={props.extrudeSwitch} alt="Extruder" width="60" height="60"/>
         {/* <p className="extrude-action">Extrude</p> */}
       </div>
     </div>

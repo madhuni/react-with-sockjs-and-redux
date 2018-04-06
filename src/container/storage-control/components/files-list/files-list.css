@@ -1,8 +1,9 @@
 .files-list {
   list-style: none;
   margin: 0 auto;
-  padding: 0 56px;
-  width: 100%;
+  /* padding: 0 56px; */
+  padding: 0;
+  width: 85%;
   height: 336px;
   overflow-y: scroll;
   position: relative;

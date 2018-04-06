@@ -31,8 +31,16 @@
 }
 
 .switch {
+  display: inline-block;
   box-shadow: 4px 4px 2px 0 black;
   transition: all .1s ease;
+  border: 1px solid black;
+  border-radius: 12px;
+  background: white;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .switch:active {
@@ -45,13 +53,15 @@
 }
 
 .heating-switch {
-  border-radius: 12px;
+  /* border-radius: 12px; */
+  background: linear-gradient(to top, red, orange, yellow);
 }
 
 .cooling-switch {
-  border-left: 1px solid #2f89d1;
-  border-top: 1px solid #2f89d1;
-  border-radius: 12px;
+  /* border-left: 1px solid #2f89d1; */
+  /* border-top: 1px solid #2f89d1; */
+  /* border-radius: 12px; */
+  background: linear-gradient(to top,skyblue, white);
 }
 
 .extrude-switch {

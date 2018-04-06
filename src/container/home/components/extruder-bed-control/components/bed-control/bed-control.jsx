@@ -15,8 +15,12 @@ const bedControl = (props) => {
         </div>
       </div>
       <div className="temp-control">
-        <img src={props.heatSwitch} alt="Heat" width="80" height="80" className="heating-switch switch" onClick={props.heat}/>
-        <img src={props.coolSwitch} alt="Cool" width="80" height="80" className="cooling-switch switch" onClick={props.cool}/>
+        <div className="heating-switch switch" onClick={props.heat}>
+          <img src={props.heatSwitch} alt="Heat" width="60" height="60" />
+        </div>
+        <div className="cooling-switch switch" onClick={props.cool}>
+          <img src={props.coolSwitch} alt="Cool" width="60" height="60" />
+        </div>
       </div>
     </div>
   );

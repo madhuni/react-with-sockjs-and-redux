@@ -40,6 +40,28 @@ a:active {
   cursor: default;
 }
 
+/* Styling for the ScrollBar goes here */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track: the area behind the Handle*/
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 20px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: white; 
+}
+
 .alert-text {
   color: orangered;
   font-weight: bold;

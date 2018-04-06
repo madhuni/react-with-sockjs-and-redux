@@ -9,7 +9,7 @@
   border-radius: 10px;
   z-index: 300;
   text-align: center;
-  transition: all .1s ease-in-out;
+  transition: all .3s ease-out;
 }
 
 .modal-open {

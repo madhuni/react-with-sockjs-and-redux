@@ -12,9 +12,4 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: orange;
-  transition: all .2s ease-in-out;
-}
-
-.file-item:active {
-  transform: scale(.95);
 }

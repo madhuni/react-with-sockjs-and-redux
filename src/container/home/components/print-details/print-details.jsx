@@ -7,6 +7,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import './print-details.css';
 import JobDetail from './components/job-detail/job-detail';
 import Button from '../../../../components/button/button';
+import ButtonDisable from '../../../../components/button/button-disable';
 import NavLinkBtn from '../../../../components/nav-link-btn/nav-link-btn';
 
 import InternalStorageIcon from '../../../../assets/images/hardisk-icon.svg'; 
@@ -35,8 +36,11 @@ const printDetails = (props) => {
 
   const printControls = (
     <div className="print-controls flex-row">
-      <Button name={"Pause/Resume"} classValue={"btn"} clicked={props.pausePrint} />
-      <Button name={"Cancel Print"} classValue={"btn btn--danger"} clicked={props.cancelPrint} />
+      <Button name={props.currentState === 'Paused' ? 'Resume' : 'Pause'} classValue={"btn"} clicked={props.pausePrint} />
+      {props.currentState === 'Paused' ? 
+        <ButtonDisable classValue="btn">Cancel Print</ButtonDisable> :
+        <Button name={"Cancel Print"} classValue={"btn btn--danger"} clicked={props.cancelPrint} />
+      }
     </div>
   );
 

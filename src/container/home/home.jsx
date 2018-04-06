@@ -164,6 +164,7 @@ class ReceiveUpdate extends Component {
             pausePrint={() => this.onPauseCancelPrint('pause')}
             cancelPrint={() => this.onPauseCancelPrint('cancel')}
             flags={this.state.flags}
+            currentState={this.state.currentState}
           />
           <ExtruderBedControl
             tool0={this.state.tool0}

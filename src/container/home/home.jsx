@@ -9,6 +9,7 @@ import switchTool from '../../services/api/switch-tool';
 import tempExtruder from '../../services/api/temp-extruder';
 import tempBed from '../../services/api/temp-bed';
 import pauseCancelPrint from '../../services/api/pause-cancel-print';
+import shutdown from '../../services/api/shutdown';
 // import getGcodeData from '../../services/api/get-gcode-data';
 
 /* Importing the components */
@@ -60,6 +61,10 @@ class ReceiveUpdate extends Component {
 
   onReconnectPrinter = () => {
     reconnectPrinter();
+  }
+
+  onShutDown = () => {
+    shutdown();
   }
 
   // onReceiveLayerCount = (res) => {
@@ -152,6 +157,7 @@ class ReceiveUpdate extends Component {
           reconnectPrinter={this.onReconnectPrinter}
           currentTool={this.state.currentTool}
           flags={this.state.flags}
+          shutdown={this.onShutDown}
         />
         <div className="print-extruder-area flex-row">
           <PrintDetails

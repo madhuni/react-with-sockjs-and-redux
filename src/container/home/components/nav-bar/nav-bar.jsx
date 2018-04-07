@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './nav-bar.css'
 
 import forwardIcon from '../../../../assets/images/forward-icon.png';
+import powerbtn from '../../../../assets/images/power-icon.svg';
 
 import Button from '../../../../components/button/button';
 
@@ -27,6 +28,9 @@ const navBar = (props) => {
   return (
     <nav className="nav-bar flex-row">
       <h1 className="current-state">Status: {props.currentState}</h1>
+      <div className="shutdown-btn">
+        <img src={powerbtn} alt="Power" width="36" height="36" onClick={props.shutdown}/>
+      </div>
       <div className="controls">
         <Button classValue={reconnectClass.join(' ')} name={btnName} clicked={props.reconnectPrinter}/>
       </div>

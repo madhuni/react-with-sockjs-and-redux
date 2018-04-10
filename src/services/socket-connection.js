@@ -1,9 +1,11 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import sockjs from "sockjs-client";
 import { connect } from "react-redux";
 
 import axios from "axios";
 import getToken from '../services/api/get-token';
+
+// import getGcodeData from '../services/api/get-gcode-data';
 
 class SocketConnection extends Component {
   constructor(props) {
@@ -11,7 +13,8 @@ class SocketConnection extends Component {
     
     this.state = {
       flags: null,
-      apiResponse: null
+      apiResponse: null,
+      // gcodeData: null,
     };
   }
 
@@ -52,18 +55,28 @@ class SocketConnection extends Component {
 
             if (currentData.job !== null) {
               const job = currentData.job;
+              // console.log(job);
               this.props.onUpdateJobDetails(job);
             }
             break;
           
           case 'event':
             const type = currentData['type'];
-            const payload = currentData['payload']
+            const payload = currentData['payload'];
 
-            if (type === 'ToolChange') {
-              console.log(payload);
+            switch (type) {
+              case 'ToolChange':
+                console.log(payload);
+                break;
+            
+              case 'usb_status':
+                console.log(type, payload);
+                this.props.onUpdateUsbStatus(payload);
+                break; 
+
+              default:
+                break;
             }
-            break;
         
           default:
             return null;
@@ -75,7 +88,7 @@ class SocketConnection extends Component {
 
   connect = (token) => {
     // const sockJsURI = 'http://0.0.0.0:5000/sockjs';
-    const sockJsURI = 'http://192.168.1.117:5000/sockjs';
+    const sockJsURI = 'http://192.168.1.137:5000/sockjs';
     var options = {
       debug: true
     };
@@ -113,7 +126,35 @@ class SocketConnection extends Component {
     }, time*1000);
   }
 
+  /**
+   * Exposing a function to re-create the Socket Connection. This function will be
+   * called when the 'Sever' button available on the Home Page navigation will be clicked.
+   * 
+   * This function will first Disconnect the current Socket Connection and then
+   * re-open a new Socket Connection.
+   * 
+   * This function is added in case if the server is not ready yet and the Application is
+   * open, user can use the button to reconnect to the server to get the real time
+   * update through the Socket data.
+   */
+  openSocketManually = () => {
+    this.socket.close();
+    this.connect("");
+  }
+
   componentDidMount() {
+
+    /**
+     * Calling the 'onRef' function coming as props from the Parent Compnent
+     * to set the 'this' keyword to the current class to access the functions of the
+     * class outside of this class.
+     * 
+     * This method is being used because we are Exporting the 'SocketConnection'
+     * Component wrapping around the 'connect' Higher-Order-Function. If we simply
+     * export the Component then we will not need this work-around.
+     */
+    this.props.onRef(this);
+
     this.connect("");
 
     /* Setting a time interval for refreshing the Socket Connectoin */
@@ -152,6 +193,10 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateJobDetails: (job) => {dispatch({
       type: 'UPDATE_JOB_DETAILS',
       value: job
+    })},
+    onUpdateUsbStatus: (status) => {dispatch({
+      type: 'UPDATE_USB_STATUS',
+      value: status
     })},
     onUpdateFlags: (flags) => {dispatch({
       type: 'UPDATE_FLAGS',

@@ -1,3 +1,5 @@
+import { stat } from "fs";
+
 /**
  * In Reducer first of all initializing the state of the application
  */
@@ -9,9 +11,10 @@ const initializeState = {
     printing: false,
     paused: false,
     camera: false,
-    usbStatus: false,
+    usbStatus: null,
     printProgress: {},
     job: {},
+    gcodeData: null,
     flags: {},
     currentTool: null,
     temps: {
@@ -82,6 +85,24 @@ const reducer = (state = initializeState, action) => {
       socketData: {
         ...state.socketData,
         flags: action.value
+      }
+    }
+  }
+
+  if (action.type === 'UPDATE_GCODE_DATA') {
+    return {
+      socketData: {
+        ...state.socketData,
+        gcodeData: action.value
+      }
+    }
+  }
+
+  if (action.type === 'UPDATE_USB_STATUS') {
+    return {
+      socketData: {
+        ...state.socketData,
+        usbStatus: action.value
       }
     }
   }

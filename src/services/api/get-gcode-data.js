@@ -23,7 +23,7 @@ const getGcodeData = (callback, filename) => {
   axios.get('/gcode_data/local/' + filename)
     .then(res => {
       // console.log(res.data);
-      callback(res);
+      callback(res.data);
     })
     .catch(err => {
       if (err.response) {

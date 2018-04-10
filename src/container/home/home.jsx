@@ -16,6 +16,8 @@ import shutdown from '../../services/api/shutdown';
 import NavBar from './components/nav-bar/nav-bar';
 import PrintDetails from './components/print-details/print-details';
 import ExtruderBedControl from './components/extruder-bed-control/extruder-bed-control';
+import Backdrop from '../../components/backdrop/backdrop'
+import Modal from '../../components/modal/modal';
 
 class ReceiveUpdate extends Component {
 
@@ -32,7 +34,9 @@ class ReceiveUpdate extends Component {
     tool0: null,
     tool1: null,
     bed: null,
-    currentTool: null
+    currentTool: null,
+    modalOpen: false,
+    modalFor: null
   }
 
   onSwitchTool = (tool) => {
@@ -59,22 +63,53 @@ class ReceiveUpdate extends Component {
     pauseCancelPrint(action);
   }
 
+  onCancelPrintBtn = () => {
+    this.setState({
+      ...this.state,
+      modalOpen: true,
+      modalFor: 'Cancel Print'
+    });
+  }
+
+  onCancelPrint = () => {
+    // console.log('Cancel print is clicked');
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    });
+    // this.props.onUpdateGcodeData(null);
+    pauseCancelPrint('cancel');
+  }
+
   onReconnectPrinter = () => {
     reconnectPrinter();
   }
 
-  onShutDown = () => {
-    shutdown();
+  onReconnectServer = () => {
+    console.log('Try to reconnet the printer....');
+    this._child.connect(" ");
   }
 
-  // onReceiveLayerCount = (res) => {
-  //   const totalLayer = res.data.gcode_data.total_layers;
-  //   this.setState({
-  //     ...this.state,
-  //     totalLayer: totalLayer
-  //   });
-  //   // console.log('totalLayers are : ', totalLayer);
-  // }
+  onPowerButton = () => {
+    this.setState({
+      ...this.state,
+      modalOpen: true,
+      modalFor: 'Power'
+    });
+  }
+
+  onShutDown = () => {
+    shutdown();
+    this.onBackDropClicked();
+  }
+
+  onBackDropClicked = () => {
+    // console.log('onBackDropClicked fn is called');
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    })
+  }
 
   formatTime = (seconds) => {
     if (seconds === null || isNaN(seconds)) {
@@ -100,11 +135,15 @@ class ReceiveUpdate extends Component {
     }
   }
 
-  getTotalLayer = (layerCount) => {
+  getTotalLayer = (layerCount, data) => {
     if (layerCount !== null) {
       return layerCount;
     } else {
-      return "_";
+      if (data.gcodeData !== null) {
+        return data.gcodeData.gcode_data.total_layers;
+      } else {
+        return "_";
+      }
     }
   }
 
@@ -116,7 +155,7 @@ class ReceiveUpdate extends Component {
       this.setState({
         ...this.state,
         jobName: this.getJobName(data.job.file) === null ? "No Job To Print" : this.getJobName(data.job.file),
-        totalLayer: this.getTotalLayer(data.job.layerCount),
+        totalLayer: this.getTotalLayer(data.job.layerCount, data),
         timeTaken: this.formatTime(data.printProgress.printTime),
         timeRemaining: this.formatTime(data.printProgress.printTimeLeft),
         currentState: (data.currentState !== null) ? data.currentState : "Checking the status...",
@@ -133,6 +172,7 @@ class ReceiveUpdate extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     this.initialSetup();
   }
 
@@ -150,14 +190,38 @@ class ReceiveUpdate extends Component {
   }
 
   render() {
+    const alert = (
+      <Backdrop clicked={this.onBackDropClicked} modalOpen={this.state.modalOpen}>
+        <Modal
+          modalOpen={this.state.modalOpen}
+          content={this.state.modalFor === 'Power' ? 'Shutdown Printer' : 'Cancel Print'}
+          question={this.state.modalFor === 'Power' ? 'Do you want to shutdown printer?' : 'Do you want to cancel the print?'}
+          actions={{
+            leftBtn: {
+              name: 'No',
+              classValue: '',
+            },
+            rightBtn: {
+              name: (this.state.modalFor === 'Power' ? 'Shutdown' : 'Cancel'),
+              classValue: 'btn--danger'
+            }
+          }}
+          rightBtnClick={this.state.modalFor === 'Power' ? this.onShutDown : this.onCancelPrint}
+          leftBtnClick={this.onBackDropClicked}
+        />
+      </Backdrop>
+    );
+
     return (
       <div className="printing-container">
+        {alert}
         <NavBar
           currentState={this.state.currentState}
           reconnectPrinter={this.onReconnectPrinter}
+          reconnectServer={this.props.serverClicked}
           currentTool={this.state.currentTool}
           flags={this.state.flags}
-          shutdown={this.onShutDown}
+          shutdown={this.onPowerButton}
         />
         <div className="print-extruder-area flex-row">
           <PrintDetails
@@ -168,7 +232,7 @@ class ReceiveUpdate extends Component {
             timeTaken={this.state.timeTaken}
             timeRemaining={this.state.timeRemaining}
             pausePrint={() => this.onPauseCancelPrint('pause')}
-            cancelPrint={() => this.onPauseCancelPrint('cancel')}
+            cancelPrint={this.onCancelPrintBtn}
             flags={this.state.flags}
             currentState={this.state.currentState}
           />
@@ -197,4 +261,15 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(ReceiveUpdate);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onUpdateGcodeData: (gcodeData) => {
+      dispatch({
+        type: 'UPDATE_GCODE_DATA',
+        value: gcodeData
+      })
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReceiveUpdate);

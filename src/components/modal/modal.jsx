@@ -3,6 +3,7 @@ import React from 'react';
 import './modal.css';
 
 import Button from '../button/button';
+import ButtonDisabled from '../button/button-disable';
 
 const modal = (props) => {
   const modalClass = ['modal'];
@@ -11,13 +12,40 @@ const modal = (props) => {
   } else {
     modalClass.push('modal-close');
   }
+
+  const leftBtn = props.actions.leftBtn;
+  const rightBtn = props.actions.rightBtn;
+
+  let actionBtns;
+
+  if (props.origin === 'External Storage') {
+    actionBtns = (
+      <div>
+        {!props.isBtnDisabled ? 
+          <Button classValue={'btn ' + leftBtn.classValue} clicked={props.leftBtnClick} name={leftBtn.name} /> :
+          <ButtonDisabled classValue="btn">{leftBtn.name}</ButtonDisabled>
+        }
+        {props.isBtnDisabled ?
+          <Button classValue={'btn ' + rightBtn.classValue} clicked={props.rightBtnClick} name={rightBtn.name} /> :
+          <ButtonDisabled classValue="btn">{rightBtn.name}</ButtonDisabled>
+        }
+      </div>
+    );
+  } else {
+    actionBtns = (
+      <div>
+        <Button classValue={'btn ' + leftBtn.classValue} clicked={props.leftBtnClick} name={leftBtn.name} />
+        <Button classValue={'btn ' + rightBtn.classValue} clicked={props.rightBtnClick} name={rightBtn.name} />
+      </div>
+    );
+  }
+
   return (
     <div className={modalClass.join(" ")} onClick={(event) => event.stopPropagation()}>
-      <p className="filename">{props.filename}</p>
-      <p className="question">Do you want to continue print?</p>
+      <p className="filename">{props.content}</p>
+      <p className="question">{props.question}</p>
       <div className="action-btns">
-        <Button classValue={'btn btn--danger'} clicked={props.delete} name={"Delete"}/>
-        <Button classValue={'btn btn--green'} clicked={props.print} name={"Print"}/>
+        {actionBtns}
       </div>
     </div>
   );

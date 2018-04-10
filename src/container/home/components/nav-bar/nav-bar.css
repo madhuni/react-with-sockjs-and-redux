@@ -7,7 +7,7 @@
 }
 
 .current-state {
-  width: 30%;
+  width: 40%;
   line-height: 36px;
   vertical-align: middle;
   letter-spacing: 1px;
@@ -19,11 +19,11 @@
 }
 
 .controls {
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
 .route-btn {
-  width: 150px;
+  width: 130px;
   border-radius: 3px;
   outline: none;
   background-color: white;
@@ -46,10 +46,8 @@
 }
 
 .shutdown-btn {
-  width: 56px;
   background: red;
   border-radius: 10px;
-  padding: 0 10px;
   transition: all .2s ease;
 }
 

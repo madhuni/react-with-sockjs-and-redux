@@ -9,7 +9,7 @@
     rgba(0, 0, 0, 1));
 }
 
-.nav-heading--internal-storage {
+.nav-heading--with-btn {
   width: calc(100% - 206px);
 }
 

@@ -240,11 +240,11 @@ class ReceiveUpdate extends Component {
             tool0={this.state.tool0}
             tool1={this.state.tool1}
             bed={this.state.bed}
-            heatTool0={() => this.onTempExtruder('tool0', 200)}
+            heatTool0={() => this.onTempExtruder('tool0', 240)}
             coolTool0={() => this.onTempExtruder('tool0', 0)}
-            heatTool1={() => this.onTempExtruder('tool1', 200)}
+            heatTool1={() => this.onTempExtruder('tool1', 240)}
             coolTool1={() => this.onTempExtruder('tool1', 0)}
-            heatBed={() => this.onTempBed(70)}
+            heatBed={() => this.onTempBed(120)}
             coolBed={() => this.onTempBed(0)}
             extrudeTool1={() => this.onExtrudeFilament('tool0')}
             extrudeTool2={() => this.onExtrudeFilament('tool1')}

@@ -32,7 +32,7 @@ const navBar = (props) => {
         <img src={powerbtn} alt="Power" width="36" height="36" onClick={props.shutdown}/>
       </div>
       <div className="controls flex-row">
-        <Button classValue={'btn--control'} name={'Connet Server'} clicked={props.reconnectServer}/>
+        <Button classValue={'btn--control btn--small-text'} name={'Connet Server'} clicked={props.reconnectServer}/>
         <Button classValue={reconnectClass.join(' ')} name={btnName} clicked={props.reconnectPrinter}/>
       </div>
       <div className="route-btn flex-row">

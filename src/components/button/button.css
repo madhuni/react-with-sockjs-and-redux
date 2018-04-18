@@ -62,6 +62,10 @@
   color: white;
 }
 
+.btn--small-text {
+  font-size: 16px;
+}
+
 .active {
   background-color: orange;
 }

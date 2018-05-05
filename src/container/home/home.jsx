@@ -18,6 +18,7 @@ import PrintDetails from './components/print-details/print-details';
 import ExtruderBedControl from './components/extruder-bed-control/extruder-bed-control';
 import Backdrop from '../../components/backdrop/backdrop'
 import Modal from '../../components/modal/modal';
+import Footer from './components/footer/footer';
 
 class ReceiveUpdate extends Component {
 
@@ -162,9 +163,9 @@ class ReceiveUpdate extends Component {
         totalTime: data.estimatedPrintTime,
         printProgress: !isNaN(data.printProgress.completion) ? Math.round(data.printProgress.completion * 10) / 10 : "0",
         currentLayer: data.printProgress.currentLayer,
-        tool0: data.temps.tool0,
-        tool1: data.temps.tool1,
-        bed: data.temps.bed,
+        tool0: data.temps ? data.temps.tool0 : null,
+        tool1: data.temps ? data.temps.tool1 : null,
+        bed: data.temps ? data.temps.bed : null,
         flags: data.flags,
         currentTool: data.currentTool
       });
@@ -172,7 +173,7 @@ class ReceiveUpdate extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     this.initialSetup();
   }
 
@@ -190,6 +191,7 @@ class ReceiveUpdate extends Component {
   }
 
   render() {
+    // console.log('[HOME] render function is called.');
     const alert = (
       <Backdrop clicked={this.onBackDropClicked} modalOpen={this.state.modalOpen}>
         <Modal
@@ -217,10 +219,6 @@ class ReceiveUpdate extends Component {
         {alert}
         <NavBar
           currentState={this.state.currentState}
-          reconnectPrinter={this.onReconnectPrinter}
-          reconnectServer={this.props.serverClicked}
-          currentTool={this.state.currentTool}
-          flags={this.state.flags}
           shutdown={this.onPowerButton}
         />
         <div className="print-extruder-area flex-row">
@@ -250,6 +248,11 @@ class ReceiveUpdate extends Component {
             extrudeTool2={() => this.onExtrudeFilament('tool1')}
           />
         </div>
+        <Footer
+          reconnectPrinter={this.onReconnectPrinter}
+          reconnectServer={this.props.serverClicked}
+          flags={this.state.flags}
+        />
       </div>
     );
   }

@@ -34,7 +34,7 @@ class SocketConnection extends Component {
     if (this.state.socketData !== null) {
       for (const prop in this.state.socketData) {
         const currentData = this.state.socketData[prop];
-        // console.log(currentData);
+        // console.log(currentData.state);
         switch (prop) {
           case 'connected':
             axios.defaults.headers.common['X-Api-Key'] = currentData['apikey'];
@@ -44,20 +44,8 @@ class SocketConnection extends Component {
             const currentState = currentData.state.text;
             const printProgress = currentData.progress;
             const flags = currentData.state.flags;
-            this.props.onUpdatePrinterState(currentState);
-            this.props.onUpdatePrintProgress(printProgress);
-            this.props.onUpdateFlags(flags);
-
-            if (currentData.temps.length !== 0) {
-              const temps = currentData.temps[currentData.temps.length - 1];
-              this.props.onUpdateTemps(temps);
-            }
-
-            if (currentData.job !== null) {
-              const job = currentData.job;
-              // console.log(job);
-              this.props.onUpdateJobDetails(job);
-            }
+            // console.log(currentData);
+            this.props.onUpdateSocketData(currentData);
             break;
           
           case 'event':
@@ -87,8 +75,8 @@ class SocketConnection extends Component {
   }
 
   connect = (token) => {
-    // const sockJsURI = 'http://0.0.0.0:5000/sockjs';
-    const sockJsURI = 'http://192.168.1.137:5000/sockjs';
+    const sockJsURI = 'http://0.0.0.0:5000/sockjs';
+    // const sockJsURI = 'http://192.168.1.137:5000/sockjs';
     var options = {
       debug: true
     };
@@ -178,6 +166,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onUpdateSocketData: (socketData) => {dispatch({
+      type: 'UPDATE_SOCKET_DATA',
+      value: socketData
+    })},
     onUpdatePrinterState: (currentState) => {dispatch({
       type: 'UPDATE_PRINTER_STATE',
       value: currentState

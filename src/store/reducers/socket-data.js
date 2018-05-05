@@ -6,17 +6,15 @@ import { stat } from "fs";
 const initializeState = {
   socketData: {
     currentState: null,
-    boxReachable: 'unreachable', //unreachable, reachable, checking
-    online: false,
     printing: false,
     paused: false,
-    camera: false,
     usbStatus: null,
     printProgress: {},
     job: {},
     gcodeData: null,
     flags: {},
     currentTool: null,
+    heatingUp: false,
     temps: {
       bed: {
         actual: null,
@@ -31,71 +29,59 @@ const initializeState = {
         target: null
       }
     },
-    astroprint: {
-      status: null
-    },
-    printer: {
-      status: null
-    },
-    printCapture: null
   }
 };
 
 const reducer = (state = initializeState, action) => {
-  if (action.type === 'UPDATE_PRINTER_STATE') {
+  if (action.type === 'UPDATE_SOCKET_DATA') {
+    // console.log(action);
+    if (action.value.temps[0]) {
+      return {
+        socketData: {
+          ...state.socketData,
+          /* Modifying the current state immutably */
+          temps: {
+            ...state.socketData.temps,
+            bed: {
+              ...state.socketData.temps.bed,
+              actual: action.value.temps[0].bed.actual,
+              target: action.value.temps[0].bed.target
+            },
+            tool0: {
+              ...state.socketData.temps.tool0,
+              actual: action.value.temps[0].tool0.actual,
+              target: action.value.temps[0].tool0.target
+            },
+            tool1: {
+              ...state.socketData.temps.tool1,
+              actual: action.value.temps[0].tool1.actual,
+              target: action.value.temps[0].tool1.target
+            }
+          }
+        }
+      };
+    } else {
+      return {
+        socketData: {
+          ...state.socketData,
+          currentState: action.value.state.text,
+          printProgress: action.value.progress,
+          job: action.value.job,
+          flags: action.value.state.flags
+          // temps: action.value.temps[0],
+        }
+      };
+    }
+  }
+
+  if (action.type === 'UPDATE_HEATING_STATUS') {
     // console.log(action);
     return {
       socketData: {
         ...state.socketData,
-        currentState : action.value
+        heatingUp : action.value
       }
     };
-  }
-
-  if (action.type === 'UPDATE_TEMPS') {
-    // console.log(action.value);
-    return {
-      socketData: {
-        ...state.socketData,
-        temps: action.value
-      }
-    }
-  }
-
-  if (action.type === 'UPDATE_PRINT_PROGRESS') {
-    return {
-      socketData: {
-        ...state.socketData,
-        printProgress: action.value
-      }
-    }
-  }
-
-  if (action.type === 'UPDATE_JOB_DETAILS') {
-    return {
-      socketData: {
-        ...state.socketData,
-        job: action.value
-      }
-    }
-  }
-
-  if (action.type === 'UPDATE_FLAGS') {
-    return {
-      socketData: {
-        ...state.socketData,
-        flags: action.value
-      }
-    }
-  }
-
-  if (action.type === 'UPDATE_GCODE_DATA') {
-    return {
-      socketData: {
-        ...state.socketData,
-        gcodeData: action.value
-      }
-    }
   }
 
   if (action.type === 'UPDATE_USB_STATUS') {

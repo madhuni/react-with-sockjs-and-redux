@@ -7,7 +7,7 @@
 }
 
 .current-state {
-  width: 40%;
+  flex: 1;
   line-height: 36px;
   vertical-align: middle;
   letter-spacing: 1px;
@@ -16,33 +16,6 @@
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.controls {
-  padding: 0 10px;
-}
-
-.route-btn {
-  width: 130px;
-  border-radius: 3px;
-  outline: none;
-  background-color: white;
-  align-items: center;
-}
-
-.route-btn a {
-  width: 114px;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  color: black;
-  outline: none;
-  display: inline-block;
-}
-
-.route-btn a:active {
-  outline: none;
 }
 
 .shutdown-btn {

@@ -52,8 +52,8 @@ input[placeholder="temp"] {
 }
 
 input[placeholder="temp"] + button {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   background: url('../../../../../assets/images/pencil-icon.svg');
   background-size: cover;
   background-position: center;

@@ -8,7 +8,7 @@ const navBar = (props) => {
     <nav className="nav-bar flex-row">
       <h1 className="current-state">Status: {props.currentState}</h1>
       <div className="shutdown-btn">
-        <img src={powerbtn} alt="Power" width="36" height="36" onClick={props.shutdown}/>
+        <img src={powerbtn} alt="Power" width="55" height="36" onClick={props.shutdown}/>
       </div>
     </nav>
   );

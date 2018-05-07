@@ -10,6 +10,7 @@ import getInitialData from './services/api/get-initial-data';
 import ManualControl from './container/manual-control/manual-control';
 import ExternalStorage from './container/storage-control/external-storage/external-storage';
 import InternalStorage from './container/storage-control/internal-storage/internal-storage';
+import Preheat from './container/preheat/preheat';
 
 class App extends Component {
   onGetInitialData = (res) => {
@@ -67,12 +68,13 @@ class App extends Component {
           */}
           <SocketConnection onRef={(child) => {
             this._child = child;
-            console.log(child);
+            // console.log(child);
           }} />
           <Switch>
-            <Route path="/control" exact component={ManualControl} />
-            <Route path="/internal-storage" exact component={InternalStorage} />
-            <Route path="/external-storage" exact component={ExternalStorage} />
+            <Route path="/control" component={ManualControl} />
+            <Route path="/internal-storage" component={InternalStorage} />
+            <Route path="/external-storage" component={ExternalStorage} />
+            <Route path="/preheat" component={Preheat} />
             {/* Calling the 'returnHomeComponent' funtion to return the HOME component on route */}
             <Route path="/" exact component={this.returnHomeComponent} />
           </Switch>

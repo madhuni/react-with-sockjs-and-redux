@@ -1,0 +1,30 @@
+.tool-progress:first-child {
+  margin-top: 14px;
+}
+
+.tool-progress {
+  margin-bottom: 40px;
+}
+
+.tool {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tool > img {
+  margin-right: 30px;
+  background: white;
+  border-radius: 10px;
+}
+
+.tool-details {
+  flex: 1;
+}
+
+.temps {
+  font-size: 22px;
+}
+
+.actual-temp {
+  color: #3e98c7;
+}

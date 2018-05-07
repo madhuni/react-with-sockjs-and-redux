@@ -1,0 +1,10 @@
+.preheat-container {
+  width: 800px;
+  height: 480px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, .6), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1));
+  color: #c5c5c5;
+  font-weight: 300;
+  letter-spacing: 1px;
+}

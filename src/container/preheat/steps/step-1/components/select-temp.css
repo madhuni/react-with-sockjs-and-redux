@@ -1,0 +1,70 @@
+.select-temp {
+  text-align: center;
+  border-bottom: 1px solid gray;
+  min-width: 180px;
+}
+
+.tool-img {
+  margin-bottom: 10px;
+  background: white;
+  border-radius: 10px;
+}
+
+.tool-name {
+  font-size: 16px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+
+.tool-temp {
+  position: relative;
+}
+
+.heading {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.unit {
+  position: absolute;
+  top: 34px;
+  right: 60px;
+  font-size: 20px;
+}
+
+/* Custom styles for the number-pad */
+span[role="button"] {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+input[placeholder="temp"] {
+  font-size: 22px;
+  width: 80px;
+  background: transparent;
+  border: none;
+  padding: 5px 22px 5px 5px;
+  color: #3e98c7;
+  text-align: right;
+  margin-right: 20px;
+}
+
+input[placeholder="temp"] + button {
+  width: 20px;
+  height: 20px;
+  background: url('../../../../../assets/images/pencil-icon.svg');
+  background-size: cover;
+  background-position: center;
+  border: none;
+}
+
+input[placeholder="temp"] + button > svg {
+  display: none;
+}
+
+.temp-value {
+  font-size: 22px;
+  padding: 10px 0;
+}

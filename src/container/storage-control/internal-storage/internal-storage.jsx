@@ -37,7 +37,8 @@ class InternalStorage extends Component {
       gcodeData: data
     });
     this.props.onUpdateGcodeData(this.state.gcodeData);
-    this.props.history.goBack();
+    // this.props.history.goBack();
+    this.props.history.push('/');
   }
 
   onPrintFilesReceived = (res) => {

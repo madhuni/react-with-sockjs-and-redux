@@ -7,6 +7,8 @@
   z-index: 300;
   text-align: center;
   transition: all .2s ease;
+  color: black !important;
+  letter-spacing: 0 !important;
 }
 
 .modal-open {

@@ -38,6 +38,7 @@ span[role="button"] {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding-bottom: 10px;
 }
 
 input[placeholder="temp"] {
@@ -67,4 +68,18 @@ input[placeholder="temp"] + button > svg {
 .temp-value {
   font-size: 22px;
   padding: 10px 0;
+}
+
+.lgHXop {
+  width: 400px !important;
+  height: 400px !important;
+  font-size: 25px !important;
+}
+
+.jijhfo {
+  padding: 10px 5px !important;
+}
+
+.cmFnGs {
+  padding: 15px 10px !important;
 }

@@ -18,13 +18,10 @@ class Preheat extends Component {
 
   state = {
     removeBackBtn: false,
-    ext1Temp: 240,
-    ext2Temp: 240,
-    bedTemp: 70,
     modalOpen: false,
-    minExtTemp: 0,
+    minExtTemp: 35,
     maxExtTemp: 280,
-    minBedTemp: 0,
+    minBedTemp: 35,
     maxBedTemp: 140
   }
 
@@ -56,30 +53,21 @@ class Preheat extends Component {
 
   /* Handling input change for the temperatures for preheating */
   onExtruder1TempChange = (value) => {
-    this.setState({
-      ...this.state,
-      ext1Temp: Math.min(Math.max(parseInt(value), this.state.minExtTemp),this.state.maxExtTemp)
-    });
+    this.props.onUpdatingTool0TargetTemp(Math.min(Math.max(parseInt(value), this.state.minExtTemp)));
   }
   onExtruder2TempChange = (value) => {
-    this.setState({
-      ...this.state,
-      ext2Temp: Math.min(Math.max(parseInt(value), this.state.minExtTemp), this.state.maxExtTemp)
-    });
+    this.props.onUpdatingTool1TargetTemp(Math.min(Math.max(parseInt(value), this.state.minExtTemp)));
   }
   onBedTempChange = (value) => {
-    this.setState({
-      ...this.state,
-      bedTemp: Math.min(Math.max(parseInt(value), this.state.minBedTemp), this.state.maxBedTemp)
-    });
+    this.props.onUpdatingTool0TargetTemp(Math.min(Math.max(parseInt(value), this.state.minExtTemp)));
   }
 
   /* Starting Preheat */
   onStartPreheat = () => {
     console.log('onStartPreheat is called');
-    const ext1Temp = this.state.ext1Temp;
-    const ext2Temp = this.state.ext2Temp;
-    const bedTemp = this.state.bedTemp;
+    const ext1Temp = this.props.preheatTemps.tool0TargetTemp;
+    const ext2Temp = this.props.preheatTemps.tool1TargetTemp;
+    const bedTemp = this.props.preheatTemps.bedTargetTemp;
 
     tempBothExtruder({tool0: ext1Temp, tool1: ext2Temp }, bedTemp, this.onPreheatSuccess);
   }
@@ -101,6 +89,10 @@ class Preheat extends Component {
     }
     /* Navigating to the Step-3 */
     this.props.history.push(`${this.props.match.url}/step-3`);
+    /* Updating the Store with the old target values of tools and bed */
+    this.props.onUpdatingTool0TargetTemp(240);
+    this.props.onUpdatingTool1TargetTemp(240);
+    this.props.onUpdatingBedTargetTemp(70);
   }
 
   onFinish = () => {
@@ -117,6 +109,10 @@ class Preheat extends Component {
       ...this.state,
       modalOpen: false
     });
+  }
+
+  componentDidMount() {
+    console.log(this.props.preheatTemps);
   }
 
   render() {
@@ -156,7 +152,11 @@ class Preheat extends Component {
           <Route path={`${match.path}/step-2`} exact render={(props) => 
             <Preheating
               temps={this.props.socketData.temps}
-              targets={{tool0: this.state.ext1Temp, tool1: this.state.ext2Temp, bed: this.state.bedTemp}}
+              targets={{
+                tool0: this.props.preheatTemps.tool0TargetTemp,
+                tool1: this.props.preheatTemps.tool1TargetTemp,
+                bed: this.props.preheatTemps.bedTargetTemp
+              }}
               basePath={match.path}
               onCompletePreheat={this.onCompletePreheat}
               onPreheatCancel={this.onPreheatCancel}
@@ -192,7 +192,8 @@ class Preheat extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    socketData: state.socketData.socketData
+    socketData: state.socketData.socketData,
+    preheatTemps: state.preheatTemps
   }
 };
 
@@ -202,6 +203,24 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'UPDATE_HEATING_STATUS',
         value: status
+      })
+    },
+    onUpdatingTool0TargetTemp: (temp) => {
+      dispatch({
+        type: 'UPDATE_TOOL0_TARGET',
+        value: temp
+      })
+    },
+    onUpdatingTool1TargetTemp: (temp) => {
+      dispatch({
+        type: 'UPDATE_TOOL1_TARGET',
+        value: temp
+      })
+    },
+    onUpdatingBedTargetTemp: (temp) => {
+      dispatch({
+        type: 'UPDATE_BED_TARGET',
+        value: temp
       })
     }
   }

@@ -182,16 +182,7 @@ class ReceiveUpdate extends Component {
     // console.log(this.state.currentTool);
   }
 
-  componentDidUpdate() {
-    // console.log('componentDidUpdate is called');
-    // if (this.state.flags && this.state.flags.printing) {
-    //   const printFileName = this.state.jobName;
-    //   getGcodeData(this.onReceiveLayerCount, printFileName);
-    // }
-  }
-
   render() {
-    // console.log('[HOME] render function is called.');
     const alert = (
       <Backdrop clicked={this.onBackDropClicked} modalOpen={this.state.modalOpen}>
         <Modal

@@ -59,7 +59,7 @@ class Preheat extends Component {
     this.props.onUpdatingTool1TargetTemp(Math.min(Math.max(parseInt(value), this.state.minExtTemp)));
   }
   onBedTempChange = (value) => {
-    this.props.onUpdatingTool0TargetTemp(Math.min(Math.max(parseInt(value), this.state.minExtTemp)));
+    this.props.onUpdatingBedTargetTemp(Math.min(Math.max(parseInt(value), this.state.minBedTemp)));
   }
 
   /* Starting Preheat */

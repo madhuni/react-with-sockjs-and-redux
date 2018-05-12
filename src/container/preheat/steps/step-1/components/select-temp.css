@@ -70,16 +70,19 @@ input[placeholder="temp"] + button > svg {
   padding: 10px 0;
 }
 
+/* Num-Pad container */
 .lgHXop {
   width: 400px !important;
   height: 400px !important;
   font-size: 25px !important;
 }
 
+/* Upper navigation */
 .jijhfo {
   padding: 10px 5px !important;
 }
 
+/* Value display */
 .cmFnGs {
   padding: 15px 10px !important;
 }

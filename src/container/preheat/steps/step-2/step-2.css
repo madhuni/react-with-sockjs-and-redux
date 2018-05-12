@@ -13,6 +13,18 @@
 .heating-up-msg {
   font-size: 25px;
   margin-bottom: 20px;
+  transition: opacity .5s ease;
+  animation: blink .7s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: .4;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .tools-progress-area {

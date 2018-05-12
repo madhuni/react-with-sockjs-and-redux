@@ -18,6 +18,8 @@ const selectTemp = (props) => {
           placeholder={'temp'}
           position='center'
           value={props.temp}
+          min={props.min}
+          max={props.max}
         />
       </div>
     </div>

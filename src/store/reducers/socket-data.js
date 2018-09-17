@@ -1,5 +1,3 @@
-import { stat } from "fs";
-
 /**
  * In Reducer first of all initializing the state of the application
  */
@@ -57,7 +55,11 @@ const reducer = (state = initializeState, action) => {
               actual: action.value.temps[0].tool1.actual,
               target: action.value.temps[0].tool1.target
             }
-          }
+          },
+          currentState: action.value.state.text,
+          printProgress: action.value.progress,
+          job: action.value.job,
+          flags: action.value.state.flags
         }
       };
     } else {
@@ -80,6 +82,26 @@ const reducer = (state = initializeState, action) => {
       socketData: {
         ...state.socketData,
         heatingUp : action.value
+      }
+    };
+  }
+
+  if (action.type === 'UPDATE_FLAGS') {
+    // console.log(action);
+    return {
+      socketData: {
+        ...state.socketData,
+        flags : action.value
+      }
+    };
+  }
+
+  if (action.type === 'UPDATE_GCODE_DATA') {
+    // console.log(action);
+    return {
+      socketData: {
+        ...state.socketData,
+        gcodeData : action.value
       }
     };
   }

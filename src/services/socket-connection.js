@@ -44,8 +44,9 @@ class SocketConnection extends Component {
             const currentState = currentData.state.text;
             const printProgress = currentData.progress;
             const flags = currentData.state.flags;
-            // console.log(currentData);
+            // console.log(currentData, flags);
             this.props.onUpdateSocketData(currentData);
+            this.props.onUpdateFlags(flags);
             break;
           
           case 'event':
@@ -76,7 +77,7 @@ class SocketConnection extends Component {
 
   connect = (token) => {
     const sockJsURI = 'http://0.0.0.0:5000/sockjs';
-    // const sockJsURI = 'http://192.168.1.137:5000/sockjs';
+    // const sockJsURI = 'http://192.168.1.z102:5000/sockjs';
     var options = {
       debug: true
     };
@@ -93,7 +94,7 @@ class SocketConnection extends Component {
   }
   _onmessage = (e) => {
     // console.log('_onmessage fn is called');
-    // console.log(e.data);
+    // console.log(e.data.current);
     this.setState({
       ...this.state,
       socketData: e.data

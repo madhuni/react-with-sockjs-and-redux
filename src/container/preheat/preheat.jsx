@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
+import Fade from 'react-reveal/Fade';
 
 import './preheat.css';
 import backBtn from '../../assets/images/back-icon.svg';
@@ -148,43 +149,45 @@ class Preheat extends Component {
           </NavLink>
           <h1 className="nav-heading" style={this.state.removeBackBtn ? navHeadingStyle : null}>Preheat</h1>
         </NavBar>
-        <Switch>
-          <Route path={`${match.path}/step-2`} exact render={(props) => 
-            <Preheating
-              temps={this.props.socketData.temps}
-              targets={{
-                tool0: this.props.preheatTemps.tool0TargetTemp,
-                tool1: this.props.preheatTemps.tool1TargetTemp,
-                bed: this.props.preheatTemps.bedTargetTemp
-              }}
-              basePath={match.path}
-              onCompletePreheat={this.onCompletePreheat}
-              onPreheatCancel={this.onPreheatCancel}
-              {...props}
-            />}
-          />
-          <Route path={`${match.path}/step-3`} exact render={(props) => {
-            return (
-              <Finish basePath={match.path} heatingUp={this.props.socketData.heatingUp} onFinish={this.onFinish} {...props} />
-            );
-          }}
-          />
-          <Route path={match.path} exact render={(props) => {
-            return (
-              this.props.socketData.heatingUp ? 
-              <Redirect to={`${match.path}/step-2`} /> :
-              <SelectTemp
+        <Fade right duration={200}>
+          <Switch>
+            <Route path={`${match.path}/step-2`} exact render={(props) => 
+              <Preheating
+                temps={this.props.socketData.temps}
+                targets={{
+                  tool0: this.props.preheatTemps.tool0TargetTemp,
+                  tool1: this.props.preheatTemps.tool1TargetTemp,
+                  bed: this.props.preheatTemps.bedTargetTemp
+                }}
                 basePath={match.path}
-                startPreheat={this.onStartPreheat}
-                onExtruder1TempChange={this.onExtruder1TempChange}
-                onExtruder2TempChange={this.onExtruder2TempChange}
-                onBedTempChange={this.onBedTempChange}
+                onCompletePreheat={this.onCompletePreheat}
+                onPreheatCancel={this.onPreheatCancel}
                 {...props}
-              />
-            )}
-          }
-          />
-        </Switch>
+              />}
+            />
+            <Route path={`${match.path}/step-3`} exact render={(props) => {
+              return (
+                <Finish basePath={match.path} heatingUp={this.props.socketData.heatingUp} onFinish={this.onFinish} {...props} />
+              );
+            }}
+            />
+            <Route path={match.path} exact render={(props) => {
+              return (
+                this.props.socketData.heatingUp ? 
+                <Redirect to={`${match.path}/step-2`} /> :
+                <SelectTemp
+                  basePath={match.path}
+                  startPreheat={this.onStartPreheat}
+                  onExtruder1TempChange={this.onExtruder1TempChange}
+                  onExtruder2TempChange={this.onExtruder2TempChange}
+                  onBedTempChange={this.onBedTempChange}
+                  {...props}
+                />
+              )}
+            }
+            />
+          </Switch>
+        </Fade>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import Fade from 'react-reveal/Fade';
 
 import './home.css';
 

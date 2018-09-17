@@ -17,6 +17,8 @@ const printDetails = (props) => {
   let layerCount;
   let timeTaken;
   let timeRemaining;
+  let printProgress;
+  let jobName;
 
   if (props.currentLayer !== undefined && props.totalLayer !== undefined) {
     const currentLayer = props.currentLayer !== null ? props.currentLayer : '_';
@@ -26,13 +28,32 @@ const printDetails = (props) => {
     layerCount = '_ Of _'; 
   }
 
-  if (props.timeTaken !== null) {
-    timeTaken = props.timeTaken[0] + ":" + props.timeTaken[1] + ":" + props.timeTaken[2];
+  if (props.flags) {
+    if ((props.flags.printing || props.flags.paused) && props.timeTaken !== null) {
+      timeTaken = props.timeTaken[0] + ":" + props.timeTaken[1] + ":" + props.timeTaken[2];
+    } else {
+      timeTaken = "--:--:--";
+    }
+  
+    if ((props.flags.printing || props.flags.paused) && props.timeRemaining !== null) {
+      timeRemaining = props.timeRemaining[0] + ":" + props.timeRemaining[1] + ":" + props.timeRemaining[2];
+    } else {
+      timeRemaining = "--:--:--";
+    }
+
+    if (props.flags.printing || props.flags.paused) {
+      printProgress = props.printProgress;
+    } else {
+      printProgress = 0;
+    }
+
+    if (props.flags.printing || props.flags.paused) {
+      jobName = props.jobName ? props.jobName : 'No Job To Print';
+    } else {
+      jobName = 'No Job To Print'
+    }
   }
 
-  if (props.timeRemaining !== null) {
-    timeRemaining = props.timeRemaining[0] + ":" + props.timeRemaining[1] + ":" + props.timeRemaining[2];
-  }
 
   const printControls = (
     <div className="print-controls flex-row">
@@ -64,8 +85,8 @@ const printDetails = (props) => {
   return (
     <div className="printing-area flex-col">
       <div className="print-details">
-        <p className="job-name">{props.jobName!== null ? props.jobName : "No Job To Print"}</p>
-        <CircularProgressbar className="print-progress" percentage={props.printProgress}/>
+        <p className="job-name">{jobName}</p>
+        <CircularProgressbar className="print-progress" percentage={printProgress}/>
         <div className="layer-time-container flex-row">
           <JobDetail data={layerCount} type={"Layers"}/>
           <JobDetail data={timeTaken} type={"Time Taken"}/>

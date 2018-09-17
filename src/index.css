@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
   user-select: none;
+  /* cursor: none !important; */
 }
 
 body {
@@ -81,5 +82,5 @@ a:active {
   width: 800px;
   height: 480px;
   margin: 0 auto;
-  background: linear-gradient(to bottom, white, white, skyblue, white);
+  /* background: linear-gradient(to bottom, rgba(0, 0, 0, .6), rgba(0, 0, 0, .9), rgba(0, 0, 0, 1)); */
 }

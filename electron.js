@@ -14,8 +14,14 @@ function createWindow() {
     width: 800,
     height: 480,
     frame: true,
-    resizable: false,
+    resizable: true,
+    center: true,
+    transparent: false,
+    maximizable: true,
     show: false,
+    alwaysOnTop: false,
+    useContentSize: true,
+    title: 'Ethereal Touch',
     webPreferences: {
       devTools: true
     }
@@ -31,7 +37,7 @@ function createWindow() {
   splash = new BrowserWindow({
     width: 800,
     height: 480,
-    transparent: true,
+    transparent: false,
     frame: false,
     resizable: false,
     alwaysOnTop: true,
@@ -45,7 +51,8 @@ function createWindow() {
 
   win.once('ready-to-show', () => {
     setTimeout(() => {
-      splash.destroy();
+      splash.alwaysOnTop = false;
+      splash.hide();
       win.show();
     }, 5000);
   });
@@ -58,7 +65,11 @@ function createWindow() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    win = null
+    win = null;
+    splash.show();
+    setTimeout(() => {
+      splash.destroy();
+    }, 2000);
   })
 }
 
